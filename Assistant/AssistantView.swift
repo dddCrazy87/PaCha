@@ -98,7 +98,7 @@ struct AssistantView: View {
                     .padding()
                     
                     NavigationLink {
-                        ParkingIDView()
+                        HistoryView()
                     } label: {
                         RoundedRectangle(cornerRadius: 25)
                             .frame(width: 135, height: 40)
