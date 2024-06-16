@@ -2,6 +2,17 @@ import SwiftUI
 
 struct SettingView: View {
     
+    // Preference
+    @State private var isPreferenceSettingOn = false
+    @State private var isNotificationOn = false
+    @State private var isMapStatusOn = false
+    
+    // DarkModeSetting
+    @State private var isDarkModeSettingOn = false
+    @State private var isAutoDarkModeOn = false
+    @State private var isManualDarkModeOn = false
+    @State private var isTimerDarkModeOn = false
+    
     @State private var isAutoUpdateOn = false
     
     var body: some View {
@@ -30,7 +41,7 @@ struct SettingView: View {
             .padding()
             
             Button {
-                
+                isDarkModeSettingOn = true
             } label: {
                 
                 HStack {
@@ -44,7 +55,7 @@ struct SettingView: View {
             .padding()
             
             Button {
-                
+                isPreferenceSettingOn = true
             } label: {
                 
                 VStack {
@@ -121,6 +132,33 @@ struct SettingView: View {
         .foregroundColor(.black)
         .navigationTitle("設定")
         .navigationBarTitleDisplayMode(.inline)
+        
+        // Dark Mode
+        .sheet(isPresented: $isDarkModeSettingOn) {
+            VStack(alignment: .leading) {
+                Toggle("自動感測", isOn: $isAutoDarkModeOn)
+                Toggle("時間設置", isOn: $isTimerDarkModeOn)
+                Toggle("手動開啟", isOn: $isManualDarkModeOn)
+            }
+            .padding()
+            .bold()
+            .presentationDetents([.fraction(0.3)])
+            .presentationDragIndicator(.visible)
+        }
+        
+        // Preference Setting
+        .sheet(isPresented: $isPreferenceSettingOn) {
+            VStack(alignment: .leading) {
+                Text("字體大小")
+                Toggle("訊息通知", isOn: $isNotificationOn)
+                Toggle("地圖路況顯示", isOn: $isMapStatusOn)
+                Text("地圖路況顯示")
+                    .bold()
+            }
+            .padding()
+            .presentationDetents([.fraction(0.3)])
+            .presentationDragIndicator(.visible)
+        }
     }
 }
 
