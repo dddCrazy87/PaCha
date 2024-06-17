@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct HistoryParkingView: View {
+    
+    let historyParkingData:HistoryParking
+    
     var body: some View {
         
         ZStack {
@@ -19,7 +22,7 @@ struct HistoryParkingView: View {
                     
                     Spacer()
                     
-                    Text("防彈百貨地下停車場")
+                    Text(historyParkingData.name)
                         .font(.headline)
                         .padding(.trailing, 55)
                 }
@@ -28,17 +31,17 @@ struct HistoryParkingView: View {
                     .frame(width: 280, height: 1)
                 
                 HStack(alignment: .bottom) {
-                    Text("2013/06/13")
+                    Text(historyParkingData.date)
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.leading, 60)
                     Spacer()
-                    Text("19:09 PM")
+                    Text(historyParkingData.time)
                         .font(.caption)
                         .foregroundColor(.gray)
                     
                     Spacer()
-                    Text("$40")
+                    Text("$"+String(historyParkingData.price))
                         .font(.callout)
                         .padding(.trailing, 60)
                 }
@@ -49,5 +52,5 @@ struct HistoryParkingView: View {
 }
 
 #Preview {
-    HistoryParkingView()
+    HistoryParkingView(historyParkingData: HistoryParking(name: "A停車場", date: "2024/06/01", time: "19:00 PM", price: 50))
 }

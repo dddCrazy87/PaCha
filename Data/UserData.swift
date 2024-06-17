@@ -6,3 +6,11 @@ struct FavoriteParking:Identifiable {
     var name = ""
     var pricePerHour = 0
 }
+
+struct HistoryParking:Identifiable {
+    let id = UUID()
+    var name = ""
+    var date = ""
+    var time = ""
+    var price = 0
+}
