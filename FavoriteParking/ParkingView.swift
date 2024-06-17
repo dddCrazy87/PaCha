@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct ParkingView: View {
+    
+    let parkingData:FavoriteParking
+    
     var body: some View {
         
         ZStack {
@@ -20,13 +23,13 @@ struct ParkingView: View {
                 
                 VStack {
                     HStack {
-                        Text("A地下停車場")
+                        Text(parkingData.name)
                             .font(.caption)
                         Spacer()
                     }
                     
                     HStack {
-                        Text("$60/hr")
+                        Text("$"+String(parkingData.pricePerHour)+"/hr")
                             .font(.caption2)
                         
                         Divider().frame(height: 12)
@@ -51,5 +54,5 @@ struct ParkingView: View {
 }
 
 #Preview {
-    ParkingView()
+    ParkingView(parkingData: FavoriteParking(img: "", name: "A地下停車場", pricePerHour: 60))
 }
