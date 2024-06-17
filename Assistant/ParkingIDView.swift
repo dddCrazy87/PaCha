@@ -76,7 +76,7 @@ struct ParkingIDView: View {
                             .font(.caption)
                             .foregroundColor(.gray)
                             .frame(maxWidth: 125)
-                            .lineLimit(nil)
+                            .lineLimit(3)
                             .padding(.leading, 10)
                     }
                     Spacer()
