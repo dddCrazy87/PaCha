@@ -54,11 +54,12 @@ struct FavoriteParkingView: View {
     
     NavigationStack {
         FavoriteParkingView(favorieParkingData: [
-            FavoriteParking(img: "", name:"A停車場", pricePerHour: 10, distance: 1.2),
-            FavoriteParking(img: "", name:"B停車場", pricePerHour: 20, distance: 1.0),
-            FavoriteParking(img: "", name:"C停車場", pricePerHour: 30, distance: 0.8),
-            FavoriteParking(img: "", name:"D停車場", pricePerHour: 40, distance: 0.6),
-            FavoriteParking(img: "", name:"E停車場", pricePerHour: 50, distance: 0.4),
-            FavoriteParking(img: "", name:"F停車場", pricePerHour: 60, distance: 0.2)])
+            FavoriteParking(img: "", name:"A停車場", pricePerHour: 10, distance: 1.2, isRecommend: false),
+            FavoriteParking(img: "", name:"B停車場", pricePerHour: 20, distance: 1.0, isRecommend: true),
+            FavoriteParking(img: "", name:"C停車場", pricePerHour: 30, distance: 0.8, isRecommend: false),
+            FavoriteParking(img: "", name:"D停車場", pricePerHour: 40, distance: 0.6, isRecommend: false),
+            FavoriteParking(img: "", name:"E停車場", pricePerHour: 50, distance: 0.4, isRecommend: true),
+            FavoriteParking(img: "", name:"F停車場", pricePerHour: 60, distance: 0.2, isRecommend: true)
+        ])
     }
 }

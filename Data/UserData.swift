@@ -6,6 +6,7 @@ struct FavoriteParking:Identifiable {
     var name = ""
     var pricePerHour = 0
     var distance = 0.0
+    var isRecommend = false
 }
 
 struct HistoryParking:Identifiable {
