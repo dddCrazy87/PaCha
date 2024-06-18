@@ -22,20 +22,24 @@ struct SettingView: View {
             Button {
                 
             } label: {
-                VStack {
-                    HStack {
+                HStack(alignment: .top) {
+                    
+                    Image("Login")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.horizontal, 5)
+                    
+                    VStack(alignment: .leading) {
                         Text("登入")
                             .font(.title2)
                             .bold()
-                        Spacer()
-                    }
-                    HStack {
                         Text("密碼‧帳號安全‧個人資料·備份")
                             .foregroundColor(.gray)
                             .font(.caption)
                             .bold()
-                        Spacer()
                     }
+                    
+                    Spacer()
                 }
             }
             .padding()
@@ -44,10 +48,20 @@ struct SettingView: View {
                 isDarkModeSettingOn = true
             } label: {
                 
-                HStack {
-                    Text("夜間模式")
-                        .font(.title2)
-                        .bold()
+                HStack(alignment: .top) {
+                    
+                    Image("DarkMode")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.horizontal, 5)
+                    
+                    HStack {
+                        Text("夜間模式")
+                            .font(.title2)
+                            .bold()
+                        
+                        Spacer()
+                    }
                     
                     Spacer()
                 }
@@ -58,21 +72,51 @@ struct SettingView: View {
                 isPreferenceSettingOn = true
             } label: {
                 
-                VStack {
-                    HStack {
+                HStack(alignment: .top) {
+                    
+                    Image("Preference")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.horizontal, 5)
+                    
+                    VStack(alignment: .leading) {
                         Text("偏好設定")
                             .font(.title2)
                             .bold()
-                        Spacer()
-                    }
-                    HStack {
+                        
                         Text("字體‧通知‧地圖路況")
                             .foregroundColor(.gray)
                             .font(.caption)
                             .bold()
+                    }
+                    
+                    Spacer()
+                }
+            }
+            .padding()
+            
+            Button {
+                
+            } label: {
+                
+                HStack(alignment: .top) {
+                    
+                    Image("AboutUs")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.horizontal, 5)
+                    
+                    HStack {
+                        Text("關於我們")
+                            .font(.title2)
+                            .bold()
+                        
                         Spacer()
                     }
+                    
+                    Spacer()
                 }
+                
             }
             .padding()
             
@@ -80,10 +124,20 @@ struct SettingView: View {
                 
             } label: {
                 
-                HStack {
-                    Text("關於我們")
-                        .font(.title2)
-                        .bold()
+                HStack(alignment: .top) {
+                    
+                    Image("ContactUs")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.horizontal, 5)
+                    
+                    HStack {
+                        Text("聯絡我們")
+                            .font(.title2)
+                            .bold()
+                        
+                        Spacer()
+                    }
                     
                     Spacer()
                 }
@@ -94,31 +148,33 @@ struct SettingView: View {
                 
             } label: {
                 
-                HStack {
-                    Text("聯絡我們")
-                        .font(.title2)
-                        .bold()
+                HStack(alignment: .top) {
+                    
+                    Image("Share")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.horizontal, 5)
+                    
+                    HStack {
+                        Text("分享PaCha給好友")
+                            .font(.title2)
+                            .bold()
+                        
+                        Spacer()
+                    }
                     
                     Spacer()
                 }
             }
             .padding()
             
-            Button {
+            HStack(alignment: .top) {
                 
-            } label: {
+                Image("AutoUpdate")
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .padding(.horizontal, 5)
                 
-                HStack {
-                    Text("分享PaCha給好友")
-                        .font(.title2)
-                        .bold()
-                    
-                    Spacer()
-                }
-            }
-            .padding()
-            
-            HStack {
                 Toggle("自動更新", isOn: $isAutoUpdateOn)
                     .font(.title2)
                     .bold()
