@@ -10,9 +10,14 @@ struct AssistantView: View {
                 
                 Spacer().frame(height: 20)
                 
-                Circle()
-                    .frame(width: 275, height: 275)
-                    .foregroundColor(.purple)
+                ZStack {
+                    Circle()
+                        .frame(width: 275, height: 275)
+                        .foregroundColor(.purple)
+                    Image("PARI")
+                        .resizable()
+                        .frame(width: 224, height: 224)
+                }
                 
                 Text("智慧管家PARI")
                     .font(.title3)
@@ -95,19 +100,42 @@ struct AssistantView: View {
                     NavigationLink {
                         ParkingIDView()
                     } label: {
-                        RoundedRectangle(cornerRadius: 25)
-                            .frame(width: 135, height: 40)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 25)
+                                .frame(width: 150, height: 40)
+                            
+                            HStack {
+                                Image("ParkingSpaceID")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                
+                                Text("停車編號紀錄")
+                                    .foregroundColor(.white)
+                            }
+                        }
                     }
-                    .padding()
+                    
+                    Spacer().frame(width: 25)
                     
                     NavigationLink {
                         HistoryView(historyParking: historyParking)
                     } label: {
-                        RoundedRectangle(cornerRadius: 25)
-                            .frame(width: 135, height: 40)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 25)
+                                .frame(width: 150, height: 40)
+                            
+                            HStack {
+                                Image("History")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                
+                                Text("歷史停車紀錄")
+                                    .foregroundColor(.white)
+                            }
+                        }
                     }
-                    .padding()
                 }
+                .bold()
                 
                 Spacer()
             }
