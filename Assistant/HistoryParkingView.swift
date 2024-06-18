@@ -15,10 +15,19 @@ struct HistoryParkingView: View {
             
             VStack {
                 HStack {
-                    Image("")
-                        .frame(width: 23, height: 23)
-                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
-                        .padding(.leading, 60)
+                    
+                    if historyParkingData.isParking {
+                        Image("isParking_filled")
+                            .resizable()
+                            .frame(width: 23, height: 23)
+                            .padding(.leading, 60)
+                    }
+                    else {
+                        Image("isParking")
+                            .resizable()
+                            .frame(width: 23, height: 23)
+                            .padding(.leading, 60)
+                    }
                     
                     Spacer()
                     

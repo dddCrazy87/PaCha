@@ -21,7 +21,7 @@ struct HistoryView: View {
 #Preview {
     NavigationStack {
         HistoryView(historyParking: [
-            HistoryParking(name: "A停車場", date: "2024/06/01", time: "00:00 AM", price: 10),
+            HistoryParking(name: "A停車場", date: "2024/06/01", time: "00:00 AM", price: 10, isParking: true),
             HistoryParking(name: "B停車場", date: "2024/06/02", time: "00:00 AM", price: 20),
             HistoryParking(name: "C停車場", date: "2024/06/03", time: "00:00 AM", price: 30),
             HistoryParking(name: "D停車場", date: "2024/06/04", time: "00:00 AM", price: 40),
