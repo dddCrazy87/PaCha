@@ -3,12 +3,7 @@ import MapKit
 
 struct HomeView: View {
     
-    // Map
     @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
-    @State private var searchText = ""
-    @State private var results = [MKMapItem]()
-    
-    // Parking Lot
     @State private var parkingLotDataArray: [ParkingLotData] = []
     
     var body: some View {
@@ -24,27 +19,6 @@ struct HomeView: View {
                             Marker(parkingLot.name, coordinate: coordinateData)
                         }
                     }
-                    
-                    ForEach(results, id: \.self) {item in
-                        let placemark = item.placemark
-                        Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                    }
-                    
-                }
-                .overlay(alignment: .top) {
-                    TextField("搜尋地點...", text: $searchText)
-                        .font(.subheadline)
-                        .padding(12)
-                        .background(.white)
-                        .padding()
-                        .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                }
-                .onSubmit(of: .text) {
-                    Task { await searchPlaces() }
-                }
-                .mapControls {
-                    MapCompass()
-                    MapUserLocationButton()
                 }
             }
             else {
@@ -87,17 +61,6 @@ extension MKCoordinateRegion {
         return .init(center: .userLocation,
                      latitudinalMeters: 1000,
                      longitudinalMeters: 1000)
-    }
-}
-
-extension HomeView {
-    func searchPlaces() async {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = searchText
-        request.region = .userRegion
-        
-        let results = try? await MKLocalSearch(request: request).start()
-        self.results = results?.mapItems ?? []
     }
 }
 
