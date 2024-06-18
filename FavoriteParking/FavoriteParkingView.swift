@@ -15,13 +15,15 @@ struct FavoriteParkingView: View {
     }
     
     var body: some View {
-        VStack {
-            ScrollView {
-                VStack {
-                    Spacer().frame(height: 30)
-                    ForEach(sortedParkingData) { parking in
-                        ParkingView(parkingData: parking)
-                        Spacer().frame(height: 20)
+        NavigationStack {
+            VStack {
+                ScrollView {
+                    VStack {
+                        Spacer().frame(height: 30)
+                        ForEach(sortedParkingData) { parking in
+                            ParkingView(parkingData: parking)
+                            Spacer().frame(height: 20)
+                        }
                     }
                 }
             }
@@ -45,6 +47,51 @@ struct FavoriteParkingView: View {
                             .frame(width: 30, height: 26)
                     }
                 }
+            })
+        }
+        .toolbar {
+            ToolbarItem(placement: .bottomBar, content: {
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        Image("Home")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image("Assistant")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image("Favorite")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image("Setting_selected")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                }
+                .padding(.horizontal, 20)
+                .background {
+                    Rectangle()
+                        .frame(width: 500, height: 100)
+                        .foregroundColor(.white)
+                        .shadow(radius:10)
+                }
+                .offset(x: 0, y:10)
             })
         }
     }

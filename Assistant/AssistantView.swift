@@ -140,6 +140,51 @@ struct AssistantView: View {
                 Spacer()
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .bottomBar, content: {
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        Image("Home")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image("Assistant_selected")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image("Favorite")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Image("Setting")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                }
+                .padding(.horizontal, 20)
+                .background {
+                    Rectangle()
+                        .frame(width: 500, height: 100)
+                        .foregroundColor(.white)
+                        .shadow(radius:10)
+                }
+                .offset(x: 0, y:10)
+            })
+        }
     }
 }
 
