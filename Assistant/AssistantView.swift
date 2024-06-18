@@ -20,7 +20,7 @@ struct AssistantView: View {
                 }
                 
                 Text("智慧管家PARI")
-                    .font(.title3)
+                    .font(.callout)
                     .bold()
                 
                 Rectangle()
@@ -28,16 +28,15 @@ struct AssistantView: View {
                 
                 HStack {
                     Text("PARI目前與您行駛 ")
-                        .bold()
                     
                     Text("6000")
+                        .bold()
                     
                     Text(" 公里")
-                        .bold()
                     
                     Spacer()
                 }
-                .padding(.vertical, 15)
+                .padding(.vertical, 10)
                 .padding(.leading, 53)
                 
                 Divider()
@@ -45,16 +44,15 @@ struct AssistantView: View {
                 
                 HStack {
                     Text("目前已停 ")
-                        .bold()
                     
                     Text("2.3")
+                        .bold()
                     
                     Text(" 小時")
-                        .bold()
                     
                     Spacer()
                 }
-                .padding(.vertical, 15)
+                .padding(.vertical, 10)
                 .padding(.leading, 53)
                 
                 Divider()
@@ -62,16 +60,15 @@ struct AssistantView: View {
                 
                 HStack {
                     Text("距離上次加油已累積 ")
-                        .bold()
                     
                     Text("150")
+                        .bold()
                     
                     Text(" 公里")
-                        .bold()
                     
                     Spacer()
                 }
-                .padding(.vertical, 15)
+                .padding(.vertical, 10)
                 .padding(.leading, 53)
                 
                 Divider()
@@ -79,16 +76,15 @@ struct AssistantView: View {
                 
                 HStack {
                     Text("距離上次更換輪胎已累積 ")
-                        .bold()
                     
                     Text("50")
+                        .bold()
                     
                     Text(" 公里")
-                        .bold()
                     
                     Spacer()
                 }
-                .padding(.vertical, 15)
+                .padding(.vertical, 10)
                 .padding(.leading, 53)
                 
                 Divider()
@@ -139,6 +135,7 @@ struct AssistantView: View {
                 
                 Spacer()
             }
+            .font(.callout)
         }
         .toolbar {
             ToolbarItem(placement: .bottomBar, content: {

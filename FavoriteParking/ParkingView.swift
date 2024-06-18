@@ -24,7 +24,7 @@ struct ParkingView: View {
                 VStack {
                     HStack(alignment:.top) {
                         Text(parkingData.name)
-                            .font(.caption)
+                            .font(.callout)
                         
                         Spacer()
                         
