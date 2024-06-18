@@ -34,7 +34,7 @@ struct ParkingView: View {
                         
                         Divider().frame(height: 12)
                         
-                        Text("0.3公里")
+                        Text("\(String(format: "%.1f", parkingData.distance))公里")
                             .font(.caption2)
                         
                         Spacer()
