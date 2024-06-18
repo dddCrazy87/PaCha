@@ -13,4 +13,5 @@ struct HistoryParking:Identifiable {
     var date = ""
     var time = ""
     var price = 0
+    var isParking = false
 }
