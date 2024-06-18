@@ -1,25 +1,14 @@
 import SwiftUI
-import MapKit
 
 struct HomeView: View {
     
-    @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
     @State private var parkingLotDataArray: [ParkingLotData] = []
     
     var body: some View {
         
         Group {
             if !parkingLotDataArray.isEmpty {
-                Map(position: $cameraPosition) {
-                    
-                    Marker("Me", coordinate: .userLocation)
-                    
-                    ForEach(parkingLotDataArray) { parkingLot in
-                        if let coordinateData = parkingLot.entranceCoord.entrancecoordInfo.first?.coordinate {
-                            Marker(parkingLot.name, coordinate: coordinateData)
-                        }
-                    }
-                }
+                MapView(parkingLotDataArray: parkingLotDataArray)
             }
             else {
                 ProgressView()
@@ -50,19 +39,7 @@ struct HomeView: View {
     }
 }
 
-extension CLLocationCoordinate2D {
-    static var userLocation: CLLocationCoordinate2D {
-        return .init(latitude: 25.021532926656562, longitude: 121.53427320263013)
-    }
-}
 
-extension MKCoordinateRegion {
-    static var userRegion: MKCoordinateRegion {
-        return .init(center: .userLocation,
-                     latitudinalMeters: 1000,
-                     longitudinalMeters: 1000)
-    }
-}
 
 #Preview {
     HomeView()
