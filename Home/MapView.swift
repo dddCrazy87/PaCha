@@ -111,7 +111,7 @@ struct MapView: View {
                     
                     TextField("搜尋", text: $searchText)
                         .font(.headline)
-                        .padding()
+                        .padding(.leading, 5)
                         .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                     
                     Image("Micphone")
