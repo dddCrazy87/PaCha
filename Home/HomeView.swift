@@ -4,6 +4,7 @@ struct HomeView: View {
     
     @State private var parkingLotDataArray: [ParkingLotData] = []
     @State private var parkingLotDetail: ParkingLotData?
+    @State private var showParkingLotDetail = false
     @State private var showSmartNav = false
     
     var body: some View {
@@ -11,16 +12,18 @@ struct HomeView: View {
         ZStack {
             if !parkingLotDataArray.isEmpty {
                 ZStack {
-                    MapView(parkingLotDataArray: parkingLotDataArray, parkingLotDetail: $parkingLotDetail)
+                    MapView(parkingLotDataArray: parkingLotDataArray, parkingLotDetail: $parkingLotDetail, showParkingLotDetail: $showParkingLotDetail)
                         .onTapGesture {
                             parkingLotDetail = nil
                             showSmartNav = false
                         }
-                    if !showSmartNav {
-                        ParkingNavView(parkingLotData: $parkingLotDetail)
-                    }
-                    else {
+                    if showSmartNav {
                         SmartNavView()
+                    }
+                    if showParkingLotDetail {
+                        if let parkingLotDetail {
+                            ParkingNavView(parkingLotData: $parkingLotDetail)
+                        }
                     }
                 }
             }
