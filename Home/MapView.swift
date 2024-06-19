@@ -7,6 +7,7 @@ struct MapView: View {
     @State private var mapSelection: MKMapItem?
     @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
     @State private var searchText = ""
+    @State private var results = [MKMapItem]()
     
     var body: some View {
         Map(position: $cameraPosition, selection: $mapSelection) {
@@ -93,6 +94,11 @@ struct MapView: View {
                     }
                 }
             }
+            
+            ForEach(results, id: \.self) {item in
+                let placemark = item.placemark
+                Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+            }
         }
         .overlay(alignment: .top) {
             TextField("搜尋地點...", text: $searchText)
@@ -101,6 +107,9 @@ struct MapView: View {
                 .background(.white)
                 .padding()
                 .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+        }
+        .onSubmit(of: .text) {
+            Task { await searchPlaces() }
         }
     }
 }
@@ -116,6 +125,17 @@ extension MKCoordinateRegion {
         return .init(center: .userLocation,
                      latitudinalMeters: 1000,
                      longitudinalMeters: 1000)
+    }
+}
+
+extension MapView {
+    func searchPlaces() async {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchText
+        request.region = .userRegion
+        
+        let results = try? await MKLocalSearch(request: request).start()
+        self.results = results?.mapItems ?? []
     }
 }
 
