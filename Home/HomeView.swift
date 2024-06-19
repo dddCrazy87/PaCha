@@ -17,13 +17,13 @@ struct HomeView: View {
                             parkingLotDetail = nil
                             showSmartNav = false
                         }
-                    if showSmartNav {
-                        SmartNavView()
-                    }
                     if showParkingLotDetail {
                         if let parkingLotDetail {
                             ParkingNavView(parkingLotData: $parkingLotDetail)
                         }
+                    }
+                    if showSmartNav {
+                        SmartNavView()
                     }
                 }
             }
