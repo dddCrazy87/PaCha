@@ -137,7 +137,7 @@ struct MapView: View {
                     .resizable()
                     .frame(width: 55, height: 55)
             }
-            .offset(x:150, y:250)
+            .offset(x:160, y:250)
         }
     }
 }
