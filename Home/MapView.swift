@@ -103,12 +103,28 @@ struct MapView: View {
                 }
             }
             .overlay(alignment: .top) {
-                TextField("搜尋地點...", text: $searchText)
-                    .font(.subheadline)
-                    .padding(12)
-                    .background(.white)
-                    .padding()
-                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                HStack {
+                    Image("Search")
+                        .resizable()
+                        .frame(width: 23, height: 23)
+                        .padding(.leading, 30)
+                    
+                    TextField("搜尋", text: $searchText)
+                        .font(.headline)
+                        .padding()
+                        .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    
+                    Image("Micphone")
+                        .resizable()
+                        .frame(width: 18, height: 25)
+                        .padding(.trailing, 30)
+                }
+                .background {
+                    RoundedRectangle(cornerRadius: 30)
+                        .foregroundColor(Color.white.opacity(0.85))
+                        .frame(width: 370, height: 50)
+                }
+                
             }
             .onSubmit(of: .text) {
                 Task { await searchPlaces() }
