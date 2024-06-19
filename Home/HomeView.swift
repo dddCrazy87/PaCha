@@ -4,25 +4,87 @@ struct HomeView: View {
     
     @State private var parkingLotDataArray: [ParkingLotData] = []
     @State private var parkingLotDetail: ParkingLotData?
+    @State private var showSmartNav = false
     
     var body: some View {
         
-        Group {
+        ZStack {
             if !parkingLotDataArray.isEmpty {
                 ZStack {
                     MapView(parkingLotDataArray: parkingLotDataArray, parkingLotDetail: $parkingLotDetail)
                         .onTapGesture {
                             parkingLotDetail = nil
+                            showSmartNav = false
                         }
-                    ParkingNavView(parkingLotData: $parkingLotDetail)
+                    if !showSmartNav {
+                        ParkingNavView(parkingLotData: $parkingLotDetail)
+                    }
+                    else {
+                        SmartNavView()
+                    }
                 }
             }
             else {
                 ProgressView()
             }
+            
+            Button {
+                showSmartNav.toggle()
+            } label: {
+                Image("SmartSearch")
+                    .resizable()
+                    .frame(width: 80, height: 80)
+            }
+            .offset(y:355)
         }
         .onAppear {
             fetchParkingLotData()
+        }
+        .toolbar {
+            ToolbarItem(placement: .bottomBar, content: {
+                
+                    HStack {
+                        Button {
+                            
+                        } label: {
+                            Image("Home_selected")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        Spacer()
+                        Button {
+                            
+                        } label: {
+                            Image("Assistant")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        Spacer().frame(width: 120)
+                        Button {
+                            
+                        } label: {
+                            Image("Favorite")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        Spacer()
+                        Button {
+                            
+                        } label: {
+                            Image("Setting")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .background {
+                        Image("HomeToolBarBg")
+                            .foregroundColor(.white)
+                            .shadow(radius:10)
+                    }
+                    .offset(x: 0, y:10)
+                
+            })
         }
     }
     
@@ -49,5 +111,7 @@ struct HomeView: View {
 
 
 #Preview {
-    HomeView()
+    NavigationStack {
+        HomeView()
+    }
 }

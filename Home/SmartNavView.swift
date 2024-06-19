@@ -10,10 +10,9 @@ struct SmartNavView: View {
                 .foregroundColor(.white)
             
             VStack {
-                Image("")
+                Image("SmartSearch")
                     .resizable()
                     .frame(width: 80, height: 80)
-                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
                 
                 HStack {
                     Text("進場率")
@@ -36,20 +35,18 @@ struct SmartNavView: View {
                 
                 HStack {
                     
-                    Image("")
+                    Image("Price")
                         .resizable()
-                        .frame(width: 15, height: 15)
-                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                        .frame(width: 17, height: 18)
                     
                     Text("40/H")
                     
                     Rectangle()
                         .frame(width: 1, height: 22)
                     
-                    Image("")
+                    Image("Distance")
                         .resizable()
                         .frame(width: 15, height: 15)
-                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
                     
                     Text("0.3公里")
                 }
@@ -61,6 +58,10 @@ struct SmartNavView: View {
                         RoundedRectangle(cornerRadius: 30)
                             .frame(width: 285, height: 40)
                             .foregroundColor(.blue)
+                        
+                        Image("Navigation")
+                            .resizable()
+                            .frame(width: 22, height: 22)
                     }
                 }
                 
