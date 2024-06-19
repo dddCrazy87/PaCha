@@ -4,6 +4,7 @@ import MapKit
 struct MapView: View {
     
     @State var parkingLotDataArray: [ParkingLotData]
+    @Binding var parkingLotDetail: ParkingLotData?
     @State private var mapSelection: MKMapItem?
     @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
     @State private var searchText = ""
@@ -33,7 +34,7 @@ struct MapView: View {
                         
                         Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
                             Button {
-                                print("hi")
+                                parkingLotDetail = parkingLot
                             } label: {
                                 ZStack {
                                     Image("ParkingLot_more_than_100")
@@ -54,7 +55,7 @@ struct MapView: View {
                         
                         Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
                             Button {
-                                print("hi")
+                                parkingLotDetail = parkingLot
                             } label: {
                                 ZStack {
                                     Image("ParkingLot_less_than_50")
@@ -75,7 +76,7 @@ struct MapView: View {
                     else {
                         Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
                             Button {
-                                print("hi")
+                                parkingLotDetail = parkingLot
                             } label: {
                                 ZStack {
                                     Image("ParkingLot_less_than_10")

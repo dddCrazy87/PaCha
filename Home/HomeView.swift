@@ -3,12 +3,19 @@ import SwiftUI
 struct HomeView: View {
     
     @State private var parkingLotDataArray: [ParkingLotData] = []
+    @State private var parkingLotDetail: ParkingLotData?
     
     var body: some View {
         
         Group {
             if !parkingLotDataArray.isEmpty {
-                MapView(parkingLotDataArray: parkingLotDataArray)
+                ZStack {
+                    MapView(parkingLotDataArray: parkingLotDataArray, parkingLotDetail: $parkingLotDetail)
+                        .onTapGesture {
+                            parkingLotDetail = nil
+                        }
+                    ParkingNavView(parkingLotData: $parkingLotDetail)
+                }
             }
             else {
                 ProgressView()
