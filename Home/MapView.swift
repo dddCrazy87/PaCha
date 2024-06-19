@@ -4,13 +4,14 @@ import MapKit
 struct MapView: View {
     
     @State var parkingLotDataArray: [ParkingLotData]
+    @State private var mapSelection: MKMapItem?
     @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
     @State private var searchText = ""
     
     var body: some View {
-        Map(position: $cameraPosition) {
+        Map(position: $cameraPosition, selection: $mapSelection) {
             
-            Annotation("My location", coordinate: .userLocation) {
+            Annotation("現在位置", coordinate: .userLocation) {
                 ZStack {
                     Circle()
                         .frame(width: 32, height: 32)
@@ -22,11 +23,74 @@ struct MapView: View {
                         .frame(width: 12, height: 12)
                         .foregroundColor(.blue)
                 }
+                
             }
             
             ForEach(parkingLotDataArray) { parkingLot in
-                if let coordinateData = parkingLot.entranceCoord.entrancecoordInfo.first?.coordinate {
-                    Marker(parkingLot.name, coordinate: coordinateData)
+                if let coordinateX = Double(parkingLot.x), let coordinateY = Double(parkingLot.y) {
+                    if parkingLot.totalcar >= 100 {
+                        
+                        Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
+                            Button {
+                                print("hi")
+                            } label: {
+                                ZStack {
+                                    Image("ParkingLot_more_than_100")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 75, height: 75)
+                                    
+                                    Text("\(parkingLot.totalcar)")
+                                        .font(.system(size: 17))
+                                        .bold()
+                                        .offset(x:-0.5, y:-7.5)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                        }
+                    }
+                    else if parkingLot.totalcar >= 50 {
+                        
+                        Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
+                            Button {
+                                print("hi")
+                            } label: {
+                                ZStack {
+                                    Image("ParkingLot_less_than_50")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 75, height: 75)
+                                    
+                                    Text("\(parkingLot.totalcar)")
+                                        .font(.system(size: 17))
+                                        .bold()
+                                        .offset(x:-0.5, y:-7.5)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                        }
+                            
+                    }
+                    else {
+                        Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
+                            Button {
+                                print("hi")
+                            } label: {
+                                ZStack {
+                                    Image("ParkingLot_less_than_10")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 75, height: 75)
+                                    
+                                    Text("\(parkingLot.totalcar)")
+                                        .font(.system(size: 17))
+                                        .bold()
+                                        .offset(x:-0.5, y:-7.5)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
