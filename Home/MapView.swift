@@ -40,12 +40,12 @@ struct MapView: View {
                                     Image("ParkingLot_more_than_100")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 75, height: 75)
+                                        .frame(width: 50, height: 50)
                                     
                                     Text("\(parkingLot.totalcar)")
-                                        .font(.system(size: 17))
+                                        .font(.system(size: 10))
                                         .bold()
-                                        .offset(x:-0.5, y:-7.5)
+                                        .offset(x:-0.5, y:-6)
                                         .foregroundColor(.black)
                                 }
                             }
@@ -61,12 +61,12 @@ struct MapView: View {
                                     Image("ParkingLot_less_than_50")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 75, height: 75)
+                                        .frame(width: 50, height: 50)
                                     
                                     Text("\(parkingLot.totalcar)")
-                                        .font(.system(size: 17))
+                                        .font(.system(size: 10))
                                         .bold()
-                                        .offset(x:-0.5, y:-7.5)
+                                        .offset(x:-0.5, y:-6)
                                         .foregroundColor(.black)
                                 }
                             }
@@ -82,12 +82,12 @@ struct MapView: View {
                                     Image("ParkingLot_less_than_10")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 75, height: 75)
+                                        .frame(width: 50, height: 50)
                                     
                                     Text("\(parkingLot.totalcar)")
-                                        .font(.system(size: 17))
+                                        .font(.system(size: 10))
                                         .bold()
-                                        .offset(x:-0.5, y:-7.5)
+                                        .offset(x:-0.5, y:-6)
                                         .foregroundColor(.black)
                                 }
                             }
