@@ -14,13 +14,11 @@ struct HomeView: View {
                 ZStack {
                     MapView(parkingLotDataArray: parkingLotDataArray, parkingLotDetail: $parkingLotDetail, showParkingLotDetail: $showParkingLotDetail)
                         .onTapGesture {
-                            parkingLotDetail = nil
+                            showParkingLotDetail = false
                             showSmartNav = false
                         }
-                    if showParkingLotDetail {
-                        if let parkingLotDetail {
-                            ParkingNavView(parkingLotData: $parkingLotDetail)
-                        }
+                    if showParkingLotDetail && parkingLotDetail != nil {
+                        ParkingNavView(parkingLotData: $parkingLotDetail)
                     }
                     if showSmartNav {
                         SmartNavView()
@@ -33,6 +31,7 @@ struct HomeView: View {
             
             Button {
                 showSmartNav.toggle()
+                print("aaaa")
             } label: {
                 Image("SmartSearch")
                     .resizable()
