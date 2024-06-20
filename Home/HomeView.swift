@@ -17,76 +17,81 @@ struct HomeView: View {
                             showParkingLotDetail = false
                             showSmartNav = false
                         }
-                    if showParkingLotDetail && parkingLotDetail != nil {
-                        ParkingNavView(parkingLotData: $parkingLotDetail)
-                    }
-                    if showSmartNav {
-                        SmartNavView()
-                    }
                 }
             }
             else {
                 ProgressView()
             }
             
-            Button {
-                showSmartNav.toggle()
-                print("aaaa")
-            } label: {
-                Image("SmartSearch")
-                    .resizable()
-                    .frame(width: 80, height: 80)
+            if showParkingLotDetail {
+                ParkingNavView(parkingLotData: $parkingLotDetail)
+                    .onAppear {
+                        print("Detail apear")
+                    }
             }
-            .offset(y:355)
+            
+            if showSmartNav {
+                SmartNavView()
+            }
+            
+            HStack {
+                Button {
+                    
+                } label: {
+                    Image("Home_selected")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                }
+                .padding(.leading, 20)
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Image("Assistant")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                }
+                Spacer()
+                Button {
+                    showSmartNav.toggle()
+                } label: {
+                    Image("SmartSearch")
+                        .resizable()
+                        .frame(width: 80, height: 80)
+                }
+                .offset(y: -35)
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Image("Favorite")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                }
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Image("Setting")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                }
+                .padding(.trailing, 20)
+            }
+            .padding(.horizontal, 20)
+            .background {
+                Image("HomeToolBarBg")
+                    .resizable()
+                    .frame(width: 400, height: 130)
+                    .shadow(radius:10)
+                    .offset(x:-1.7)
+            }
+            .offset(x: 0, y:370)
+            
+
         }
         .onAppear {
             fetchParkingLotData()
-        }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar, content: {
-                
-                    HStack {
-                        Button {
-                            
-                        } label: {
-                            Image("Home_selected")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                        }
-                        Spacer()
-                        Button {
-                            
-                        } label: {
-                            Image("Assistant")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                        }
-                        Spacer().frame(width: 120)
-                        Button {
-                            
-                        } label: {
-                            Image("Favorite")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                        }
-                        Spacer()
-                        Button {
-                            
-                        } label: {
-                            Image("Setting")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .background {
-                        Image("HomeToolBarBg")
-                            .foregroundColor(.white)
-                            .shadow(radius:10)
-                    }
-                    .offset(x: 0, y:10)
-                
-            })
         }
     }
     

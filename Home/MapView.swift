@@ -38,6 +38,8 @@ struct MapView: View {
                                 Button {
                                     parkingLotDetail = parkingLot
                                     showParkingLotDetail = true
+                                    print("pressed!!!")
+                                    print(showParkingLotDetail, parkingLotDetail?.name ?? "?")
                                 } label: {
                                     ZStack {
                                         Image("ParkingLot_more_than_100")
@@ -60,6 +62,8 @@ struct MapView: View {
                                 Button {
                                     parkingLotDetail = parkingLot
                                     showParkingLotDetail = true
+                                    print("pressed!!!")
+                                    print(showParkingLotDetail, parkingLotDetail?.name ?? "?")
                                 } label: {
                                     ZStack {
                                         Image("ParkingLot_less_than_50")
@@ -82,6 +86,8 @@ struct MapView: View {
                                 Button {
                                     parkingLotDetail = parkingLot
                                     showParkingLotDetail = true
+                                    print("pressed!!!")
+                                    print(showParkingLotDetail, parkingLotDetail?.name ?? "?")
                                 } label: {
                                     ZStack {
                                         Image("ParkingLot_less_than_10")
@@ -114,9 +120,10 @@ struct MapView: View {
                         .padding(.leading, 30)
                     
                     TextField("搜尋", text: $searchText)
-                        .font(.headline)
+                        .font(.system(size: 20))
                         .padding(.leading, 5)
                         .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                        .fixedSize(horizontal: false, vertical: true)
                     
                     Image("Micphone")
                         .resizable()
@@ -128,6 +135,7 @@ struct MapView: View {
                         .foregroundColor(Color.white.opacity(0.85))
                         .frame(width: 370, height: 50)
                 }
+                .offset(y:20)
                 
             }
             .onSubmit(of: .text) {
