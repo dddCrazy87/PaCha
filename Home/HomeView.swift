@@ -36,7 +36,7 @@ struct HomeView: View {
             
             HStack {
                 Button {
-                    
+                    GlobalState.shared.viewController = "HomeView"
                 } label: {
                     Image("Home_selected")
                         .resizable()
@@ -45,7 +45,7 @@ struct HomeView: View {
                 .padding(.leading, 20)
                 Spacer()
                 Button {
-                    
+                    GlobalState.shared.viewController = "AssistantView"
                 } label: {
                     Image("Assistant")
                         .resizable()
@@ -62,7 +62,7 @@ struct HomeView: View {
                 .offset(y: -35)
                 Spacer()
                 Button {
-                    
+                    GlobalState.shared.viewController = "FavoriteParkingView"
                 } label: {
                     Image("Favorite")
                         .resizable()
@@ -70,7 +70,7 @@ struct HomeView: View {
                 }
                 Spacer()
                 Button {
-                    
+                    GlobalState.shared.viewController = "SettingView"
                 } label: {
                     Image("Setting")
                         .resizable()
@@ -82,11 +82,11 @@ struct HomeView: View {
             .background {
                 Image("HomeToolBarBg")
                     .resizable()
-                    .frame(width: 400, height: 130)
+                    .frame(width: 400, height: 140)
                     .shadow(radius:10)
-                    .offset(x:-1.7)
+                    .offset(x:-1.66, y:5)
             }
-            .offset(x: 0, y:370)
+            .offset(x: 0, y:360)
             
 
         }
@@ -120,5 +120,6 @@ struct HomeView: View {
 #Preview {
     NavigationStack {
         HomeView()
+            .environmentObject(GlobalState.shared)
     }
 }

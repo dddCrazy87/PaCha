@@ -16,16 +16,64 @@ struct FavoriteParkingView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                ScrollView {
-                    VStack {
-                        Spacer().frame(height: 30)
-                        ForEach(sortedParkingData) { parking in
-                            ParkingView(parkingData: parking)
-                            Spacer().frame(height: 20)
+            ZStack {
+                VStack {
+                    ScrollView {
+                        VStack {
+                            Spacer().frame(height: 30)
+                            ForEach(sortedParkingData) { parking in
+                                ParkingView(parkingData: parking)
+                                Spacer().frame(height: 20)
+                            }
                         }
                     }
                 }
+                
+            
+                // tool bar
+                
+                HStack {
+                    Button {
+                        GlobalState.shared.viewController = "HomeView"
+                    } label: {
+                        Image("Home")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "AssistantView"
+                    } label: {
+                        Image("Assistant")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "FavoriteParkingView"
+                    } label: {
+                        Image("Favorite_selected")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "SettingView"
+                    } label: {
+                        Image("Setting")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                }
+                .padding(.horizontal, 60)
+                .background {
+                    Rectangle()
+                        .frame(width: 400, height: 100)
+                        .foregroundColor(.white)
+                        .shadow(radius:10)
+                        .offset(y:5)
+                }
+                .offset(x: 0, y:342)
             }
         }
         .navigationTitle("常用停車場")
@@ -49,51 +97,6 @@ struct FavoriteParkingView: View {
                 }
             })
         }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar, content: {
-                HStack {
-                    Button {
-                        
-                    } label: {
-                        Image("Home")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Image("Assistant")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Image("Favorite")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Image("Setting_selected")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                }
-                .padding(.horizontal, 20)
-                .background {
-                    Rectangle()
-                        .frame(width: 500, height: 100)
-                        .foregroundColor(.white)
-                        .shadow(radius:10)
-                }
-                .offset(x: 0, y:10)
-            })
-        }
     }
 }
 
@@ -108,5 +111,6 @@ struct FavoriteParkingView: View {
             FavoriteParking(img: "", name:"E停車場", pricePerHour: 50, distance: 0.4, isRecommend: true),
             FavoriteParking(img: "", name:"F停車場", pricePerHour: 60, distance: 0.2, isRecommend: true)
         ])
+        .environmentObject(GlobalState.shared)
     }
 }

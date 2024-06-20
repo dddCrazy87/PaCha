@@ -19,173 +19,221 @@ struct SettingView: View {
         
         NavigationStack {
             
-            VStack {
+            ZStack {
                 
-                Button {
+                VStack {
                     
-                } label: {
-                    HStack(alignment: .top) {
+                    Button {
                         
-                        Image("Login")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .padding(.horizontal, 5)
-                        
-                        VStack(alignment: .leading) {
-                            Text("登入")
-                                .font(.title2)
-                                .bold()
-                            Text("密碼‧帳號安全‧個人資料·備份")
-                                .foregroundColor(.gray)
-                                .font(.caption)
-                                .bold()
+                    } label: {
+                        HStack(alignment: .top) {
+                            
+                            Image("Login")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.horizontal, 5)
+                            
+                            VStack(alignment: .leading) {
+                                Text("登入")
+                                    .font(.title2)
+                                    .bold()
+                                Text("密碼‧帳號安全‧個人資料·備份")
+                                    .foregroundColor(.gray)
+                                    .font(.caption)
+                                    .bold()
+                            }
+                            
+                            Spacer()
                         }
-                        
-                        Spacer()
                     }
-                }
-                .padding()
-                
-                Button {
-                    isDarkModeSettingOn = true
-                } label: {
+                    .padding()
                     
-                    HStack(alignment: .top) {
+                    Button {
+                        isDarkModeSettingOn = true
+                    } label: {
                         
-                        Image("DarkMode")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .padding(.horizontal, 5)
+                        HStack(alignment: .top) {
+                            
+                            Image("DarkMode")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.horizontal, 5)
+                            
+                            HStack {
+                                Text("夜間模式")
+                                    .font(.title2)
+                                    .bold()
+                                
+                                Spacer()
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                    .padding()
+                    
+                    Button {
+                        isPreferenceSettingOn = true
+                    } label: {
                         
-                        HStack {
-                            Text("夜間模式")
-                                .font(.title2)
-                                .bold()
+                        HStack(alignment: .top) {
+                            
+                            Image("Preference")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.horizontal, 5)
+                            
+                            VStack(alignment: .leading) {
+                                Text("偏好設定")
+                                    .font(.title2)
+                                    .bold()
+                                
+                                Text("字體‧通知‧地圖路況")
+                                    .foregroundColor(.gray)
+                                    .font(.caption)
+                                    .bold()
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                    .padding()
+                    
+                    Button {
+                        
+                    } label: {
+                        
+                        HStack(alignment: .top) {
+                            
+                            Image("AboutUs")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.horizontal, 5)
+                            
+                            HStack {
+                                Text("關於我們")
+                                    .font(.title2)
+                                    .bold()
+                                
+                                Spacer()
+                            }
                             
                             Spacer()
                         }
                         
-                        Spacer()
                     }
-                }
-                .padding()
-                
-                Button {
-                    isPreferenceSettingOn = true
-                } label: {
+                    .padding()
                     
-                    HStack(alignment: .top) {
+                    Button {
                         
-                        Image("Preference")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .padding(.horizontal, 5)
+                    } label: {
                         
-                        VStack(alignment: .leading) {
-                            Text("偏好設定")
-                                .font(.title2)
-                                .bold()
+                        HStack(alignment: .top) {
                             
-                            Text("字體‧通知‧地圖路況")
-                                .foregroundColor(.gray)
-                                .font(.caption)
-                                .bold()
-                        }
-                        
-                        Spacer()
-                    }
-                }
-                .padding()
-                
-                Button {
-                    
-                } label: {
-                    
-                    HStack(alignment: .top) {
-                        
-                        Image("AboutUs")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .padding(.horizontal, 5)
-                        
-                        HStack {
-                            Text("關於我們")
-                                .font(.title2)
-                                .bold()
+                            Image("ContactUs")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.horizontal, 5)
+                            
+                            HStack {
+                                Text("聯絡我們")
+                                    .font(.title2)
+                                    .bold()
+                                
+                                Spacer()
+                            }
                             
                             Spacer()
                         }
-                        
-                        Spacer()
                     }
+                    .padding()
                     
-                }
-                .padding()
-                
-                Button {
-                    
-                } label: {
+                    Button {
+                        
+                    } label: {
+                        
+                        HStack(alignment: .top) {
+                            
+                            Image("Share")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.horizontal, 5)
+                            
+                            HStack {
+                                Text("分享PaCha給好友")
+                                    .font(.title2)
+                                    .bold()
+                                
+                                Spacer()
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                    .padding()
                     
                     HStack(alignment: .top) {
                         
-                        Image("ContactUs")
+                        Image("AutoUpdate")
                             .resizable()
                             .frame(width: 30, height: 30)
                             .padding(.horizontal, 5)
                         
-                        HStack {
-                            Text("聯絡我們")
-                                .font(.title2)
-                                .bold()
-                            
-                            Spacer()
-                        }
+                        Toggle("自動更新", isOn: $isAutoUpdateOn)
+                            .font(.title2)
+                            .bold()
                         
-                        Spacer()
                     }
+                    .padding()
+                    
+                    Spacer()
+                    
                 }
-                .padding()
                 
-                Button {
-                    
-                } label: {
-                    
-                    HStack(alignment: .top) {
-                        
-                        Image("Share")
+                // tool bar
+                
+                HStack {
+                    Button {
+                        GlobalState.shared.viewController = "HomeView"
+                    } label: {
+                        Image("Home")
                             .resizable()
-                            .frame(width: 30, height: 30)
-                            .padding(.horizontal, 5)
-                        
-                        HStack {
-                            Text("分享PaCha給好友")
-                                .font(.title2)
-                                .bold()
-                            
-                            Spacer()
-                        }
-                        
-                        Spacer()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "AssistantView"
+                    } label: {
+                        Image("Assistant")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "FavoriteParkingView"
+                    } label: {
+                        Image("Favorite")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "SettingView"
+                    } label: {
+                        Image("Setting_selected")
+                            .resizable()
+                            .frame(width: 25, height: 25)
                     }
                 }
-                .padding()
-                
-                HStack(alignment: .top) {
-                    
-                    Image("AutoUpdate")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .padding(.horizontal, 5)
-                    
-                    Toggle("自動更新", isOn: $isAutoUpdateOn)
-                        .font(.title2)
-                        .bold()
-                    
+                .padding(.horizontal, 60)
+                .background {
+                    Rectangle()
+                        .frame(width: 400, height: 100)
+                        .foregroundColor(.white)
+                        .shadow(radius:10)
+                        .offset(y:5)
                 }
-                .padding()
-                
-                Spacer()
-                
+                .offset(x: 0, y:342)
             }
         }
         
@@ -220,59 +268,12 @@ struct SettingView: View {
             .presentationDetents([.fraction(0.3)])
             .presentationDragIndicator(.visible)
         }
-        
-        // tool bar
-        
-        .toolbar {
-            ToolbarItem(placement: .bottomBar, content: {
-                HStack {
-                    Button {
-                        
-                    } label: {
-                        Image("Home")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Image("Assistant")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Image("Favorite")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Image("Setting_selected")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                    }
-                }
-                .padding(.horizontal, 20)
-                .background {
-                    Rectangle()
-                        .frame(width: 500, height: 100)
-                        .foregroundColor(.white)
-                        .shadow(radius:10)
-                }
-                .offset(x: 0, y:10)
-            })
-        }
     }
 }
 
 #Preview {
     NavigationStack {
         SettingView()
+            .environmentObject(GlobalState.shared)
     }
 }
