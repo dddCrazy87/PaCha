@@ -15,7 +15,7 @@ struct HomeView: View {
         ZStack {
             if !parkingLotData.isEmpty {
                 if isNavigating {
-                    Text("isNa")
+                    NavigationView(selectedItem: $selectedItem)
                 }
                 else {
                     MapView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, showParkingLotDetail: $showParkingLotDetail, selectedItem: $selectedItem)
@@ -99,4 +99,20 @@ struct HomeView: View {
         ContentView()
             .environmentObject(GlobalState.shared)
     }
+}
+
+
+func calculateDistance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> Double {
+    let R = 6371000.0
+    let lat1 = from.latitude * .pi / 180
+    let lat2 = to.latitude * .pi / 180
+    let dLat = (to.latitude - from.latitude) * .pi / 180
+    let dLon = (to.longitude - from.longitude) * .pi / 180
+
+    let a = sin(dLat / 2) * sin(dLat / 2) +
+            cos(lat1) * cos(lat2) *
+            sin(dLon / 2) * sin(dLon / 2)
+    let c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    return R * c
 }

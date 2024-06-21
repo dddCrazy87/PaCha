@@ -121,7 +121,7 @@ struct ParkingNavView: View {
                 Button {
                     selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: parkingLotData[parkingLotSelectedIndex ?? 25].latitude, longitude: parkingLotData[parkingLotSelectedIndex ?? 121].longitude)))
                     toShowParkingDetail = false
-                    //isNavigating = true
+                    isNavigating = true
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 30)
