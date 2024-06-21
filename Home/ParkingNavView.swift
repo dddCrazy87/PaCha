@@ -1,9 +1,12 @@
 import SwiftUI
+import MapKit
 
 struct ParkingNavView: View {
     
     @Binding var parkingLotData: [ParkingLotDataForApp]
     @Binding var parkingLotSelectedIndex: Int?
+    @Binding var selectedItem: MKMapItem?
+    @Binding var toShowParkingDetail: Bool
     
     var body: some View {
         ZStack {
@@ -115,7 +118,8 @@ struct ParkingNavView: View {
                 }
                 
                 Button {
-                    
+                    selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: parkingLotData[parkingLotSelectedIndex ?? 25].latitude, longitude: parkingLotData[parkingLotSelectedIndex ?? 121].longitude)))
+                    toShowParkingDetail = false
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 30)

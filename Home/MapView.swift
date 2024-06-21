@@ -3,18 +3,23 @@ import MapKit
 
 struct MapView: View {
     
+    // parking lot data
     @Binding var parkingLotData: [ParkingLotDataForApp]
     @Binding var parkingLotSelectedIndex: Int?
-    
     @Binding var showParkingLotDetail: Bool
-    @State private var mapSelection: MKMapItem?
+    @State private var route: MKRoute?
+    
+    // map item
+    @Binding var selectedItem: MKMapItem?
     @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
+    
+    // search function
     @State private var searchText = ""
     @State private var results = [MKMapItem]()
     
     var body: some View {
         ZStack {
-            Map(position: $cameraPosition, selection: $mapSelection) {
+            Map(position: $cameraPosition, selection: $selectedItem) {
                 
                 Annotation("現在位置", coordinate: .userLocation) {
                     ZStack {
@@ -104,6 +109,11 @@ struct MapView: View {
                     let placemark = item.placemark
                     Marker(placemark.name ?? "", coordinate: placemark.coordinate)
                 }
+                
+                if let route {
+                    MapPolyline(route)
+                        .stroke(.blue, lineWidth: 5)
+                }
             }
             .overlay(alignment: .top) {
                 HStack {
@@ -133,6 +143,9 @@ struct MapView: View {
             }
             .onSubmit(of: .text) {
                 Task { await searchPlaces() }
+            }
+            .onChange(of: selectedItem) {
+                getDirections()
             }
             
             Button {
@@ -169,6 +182,24 @@ extension MapView {
         
         let results = try? await MKLocalSearch(request: request).start()
         self.results = results?.mapItems ?? []
+    }
+}
+
+extension MapView {
+    func getDirections() {
+        self.route = nil
+        
+        guard selectedItem != nil else { return }
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: .userLocation))
+        request.destination = self.selectedItem
+        
+        Task {
+            let directions = MKDirections(request: request)
+            let response = try? await directions.calculate()
+            route = response?.routes.first
+        }
     }
 }
 

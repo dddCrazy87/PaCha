@@ -1,4 +1,5 @@
 import SwiftUI
+import MapKit
 
 struct HomeView: View {
     
@@ -8,12 +9,14 @@ struct HomeView: View {
     @State private var showParkingLotDetail = false
     @State private var showSmartNav = false
     
+    @State private var selectedItem: MKMapItem?
+    
     var body: some View {
         
         ZStack {
             if !parkingLotData.isEmpty {
                 ZStack {
-                    MapView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, showParkingLotDetail: $showParkingLotDetail)
+                    MapView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, showParkingLotDetail: $showParkingLotDetail, selectedItem: $selectedItem)
                         .onTapGesture {
                             showParkingLotDetail = false
                             showSmartNav = false
@@ -28,7 +31,7 @@ struct HomeView: View {
             }
             
             if showParkingLotDetail {
-                ParkingNavView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex)
+                ParkingNavView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, selectedItem: $selectedItem, toShowParkingDetail: $showParkingLotDetail)
                     .onAppear {
                         print("Detail apear")
                     }
