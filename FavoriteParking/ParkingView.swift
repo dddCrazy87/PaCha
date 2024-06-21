@@ -2,7 +2,11 @@ import SwiftUI
 
 struct ParkingView: View {
     
-    let parkingData:FavoriteParking
+    let parkingData:ParkingLotDataForApp
+    let id: Int
+    @Binding var toRemoveFavoriteList:[Int]
+    
+    @State private var isPressedFavorite = false
     
     var body: some View {
         
@@ -15,7 +19,7 @@ struct ParkingView: View {
             HStack(alignment:.top) {
                 
                 RoundedRectangle(cornerRadius: 15)
-                    .frame(width: 125, height: 85)
+                    .frame(width: 125, height: 90)
                     .foregroundColor(.yellow)
                     .padding(.leading, 70)
                 
@@ -24,7 +28,8 @@ struct ParkingView: View {
                 VStack {
                     HStack(alignment:.top) {
                         Text(parkingData.name)
-                            .font(.callout)
+                            .font(.subheadline)
+                            .lineLimit(3)
                         
                         Spacer()
                         
@@ -32,15 +37,27 @@ struct ParkingView: View {
                             Image("Recommeded")
                                 .resizable()
                                 .frame(width: 15, height: 15)
-                            
-                            Image("Heart")
-                                .resizable()
-                                .frame(width: 17, height: 15)
                         }
-                        else {
-                            Image("Heart_filled")
-                                .resizable()
-                                .frame(width: 17, height: 15)
+                        
+                        Button {
+                            isPressedFavorite.toggle()
+                            if isPressedFavorite {
+                                toRemoveFavoriteList.append(id)
+                            }
+                            else {
+                                toRemoveFavoriteList.removeAll{$0 == id}
+                            }
+                        } label: {
+                            if isPressedFavorite {
+                                Image("Heart")
+                                    .resizable()
+                                    .frame(width: 17, height: 15)
+                            }
+                            else {
+                                Image("Heart_filled")
+                                    .resizable()
+                                    .frame(width: 17, height: 15)
+                            }
                         }
                     }
                     .padding(.top, 8)
@@ -68,5 +85,6 @@ struct ParkingView: View {
 }
 
 #Preview {
-    ParkingView(parkingData: FavoriteParking(img: "", name: "A地下停車場", pricePerHour: 60))
+    ContentView()
+        .environmentObject(GlobalState.shared)
 }

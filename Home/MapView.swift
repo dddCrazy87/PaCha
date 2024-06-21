@@ -3,8 +3,9 @@ import MapKit
 
 struct MapView: View {
     
-    @State var parkingLotDataArray: [ParkingLotData]
-    @Binding var parkingLotDetail: ParkingLotData?
+    @Binding var parkingLotData: [ParkingLotDataForApp]
+    @Binding var parkingLotSelectedIndex: Int?
+    
     @Binding var showParkingLotDetail: Bool
     @State private var mapSelection: MKMapItem?
     @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
@@ -30,77 +31,69 @@ struct MapView: View {
                     
                 }
                 
-                ForEach(parkingLotDataArray) { parkingLot in
-                    if let coordinateX = Double(parkingLot.x), let coordinateY = Double(parkingLot.y) {
-                        if parkingLot.totalcar >= 100 {
-                            
-                            Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
-                                Button {
-                                    parkingLotDetail = parkingLot
-                                    showParkingLotDetail = true
-                                    print("pressed!!!")
-                                    print(showParkingLotDetail, parkingLotDetail?.name ?? "?")
-                                } label: {
-                                    ZStack {
-                                        Image("ParkingLot_more_than_100")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 50, height: 50)
-                                        
-                                        Text("\(parkingLot.totalcar)")
-                                            .font(.system(size: 10))
-                                            .bold()
-                                            .offset(x:-0.5, y:-6)
-                                            .foregroundColor(.black)
-                                    }
+                ForEach(parkingLotData.indices, id: \.self) { index in
+                    let parkingLot = parkingLotData[index]
+                    if parkingLot.totalCar >= 100 {
+                        Annotation("", coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)) {
+                            Button {
+                                parkingLotSelectedIndex = index
+                                showParkingLotDetail = true
+                            } label: {
+                                ZStack {
+                                    Image("ParkingLot_more_than_100")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50, height: 50)
+                                    
+                                    Text("\(parkingLot.totalCar)")
+                                        .font(.system(size: 10))
+                                        .bold()
+                                        .offset(x:-0.5, y:-6)
+                                        .foregroundColor(.black)
                                 }
                             }
                         }
-                        else if parkingLot.totalcar >= 50 {
-                            
-                            Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
-                                Button {
-                                    parkingLotDetail = parkingLot
-                                    showParkingLotDetail = true
-                                    print("pressed!!!")
-                                    print(showParkingLotDetail, parkingLotDetail?.name ?? "?")
-                                } label: {
-                                    ZStack {
-                                        Image("ParkingLot_less_than_50")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 50, height: 50)
-                                        
-                                        Text("\(parkingLot.totalcar)")
-                                            .font(.system(size: 10))
-                                            .bold()
-                                            .offset(x:-0.5, y:-6)
-                                            .foregroundColor(.black)
-                                    }
+                    }
+                    else if parkingLot.totalCar >= 50 {
+                        
+                        Annotation("", coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)) {
+                            Button {
+                                parkingLotSelectedIndex = index
+                                showParkingLotDetail = true
+                            } label: {
+                                ZStack {
+                                    Image("ParkingLot_less_than_50")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50, height: 50)
+                                    
+                                    Text("\(parkingLot.totalCar)")
+                                        .font(.system(size: 10))
+                                        .bold()
+                                        .offset(x:-0.5, y:-6)
+                                        .foregroundColor(.black)
                                 }
                             }
-                            
                         }
-                        else {
-                            Annotation("", coordinate: CLLocationCoordinate2D(latitude: coordinateY, longitude: coordinateX)) {
-                                Button {
-                                    parkingLotDetail = parkingLot
-                                    showParkingLotDetail = true
-                                    print("pressed!!!")
-                                    print(showParkingLotDetail, parkingLotDetail?.name ?? "?")
-                                } label: {
-                                    ZStack {
-                                        Image("ParkingLot_less_than_10")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 50, height: 50)
-                                        
-                                        Text("\(parkingLot.totalcar)")
-                                            .font(.system(size: 10))
-                                            .bold()
-                                            .offset(x:-0.5, y:-6)
-                                            .foregroundColor(.black)
-                                    }
+                        
+                    }
+                    else {
+                        Annotation("", coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)) {
+                            Button {
+                                parkingLotSelectedIndex = index
+                                showParkingLotDetail = true
+                            } label: {
+                                ZStack {
+                                    Image("ParkingLot_less_than_10")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50, height: 50)
+                                    
+                                    Text("\(parkingLot.totalCar)")
+                                        .font(.system(size: 10))
+                                        .bold()
+                                        .offset(x:-0.5, y:-6)
+                                        .foregroundColor(.black)
                                 }
                             }
                         }
@@ -180,5 +173,6 @@ extension MapView {
 }
 
 #Preview {
-    HomeView()
+    ContentView()
+        .environmentObject(GlobalState.shared)
 }

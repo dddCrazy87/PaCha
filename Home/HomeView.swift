@@ -2,20 +2,24 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @State private var parkingLotDataArray: [ParkingLotData] = []
-    @State private var parkingLotDetail: ParkingLotData?
+    @Binding var parkingLotData: [ParkingLotDataForApp]
+    @State var parkingLotSelectedIndex: Int?
+    
     @State private var showParkingLotDetail = false
     @State private var showSmartNav = false
     
     var body: some View {
         
         ZStack {
-            if !parkingLotDataArray.isEmpty {
+            if !parkingLotData.isEmpty {
                 ZStack {
-                    MapView(parkingLotDataArray: parkingLotDataArray, parkingLotDetail: $parkingLotDetail, showParkingLotDetail: $showParkingLotDetail)
+                    MapView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, showParkingLotDetail: $showParkingLotDetail)
                         .onTapGesture {
                             showParkingLotDetail = false
                             showSmartNav = false
+                        }
+                        .onChange(of: parkingLotData[parkingLotSelectedIndex ?? 0].isFavorite) { oldValue, newValue in
+                            print(parkingLotData[parkingLotSelectedIndex ?? 0].name)
                         }
                 }
             }
@@ -24,7 +28,7 @@ struct HomeView: View {
             }
             
             if showParkingLotDetail {
-                ParkingNavView(parkingLotData: $parkingLotDetail)
+                ParkingNavView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex)
                     .onAppear {
                         print("Detail apear")
                     }
@@ -87,31 +91,7 @@ struct HomeView: View {
                     .offset(x:-1.66, y:5)
             }
             .offset(x: 0, y:360)
-            
-
         }
-        .onAppear {
-            fetchParkingLotData()
-        }
-    }
-    
-    func fetchParkingLotData() {
-        guard let url = URL(string: "https://run.mocky.io/v3/c65aa119-3ed4-4163-89f6-75dc7a23bb10") else {
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                if let decodedResponse = try? JSONDecoder().decode([ParkingLotData].self, from: data) {
-                    DispatchQueue.main.async {
-                        self.parkingLotDataArray = decodedResponse
-                    }
-                    return
-                }
-            }
-            
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-        }.resume()
     }
 }
 
@@ -119,7 +99,7 @@ struct HomeView: View {
 
 #Preview {
     NavigationStack {
-        HomeView()
+        ContentView()
             .environmentObject(GlobalState.shared)
     }
 }

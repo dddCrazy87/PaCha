@@ -1,6 +1,39 @@
 import CoreLocation
 import Foundation
 
+struct ParkingLotDataForApp: Identifiable {
+    let id = UUID()
+    
+    var name: String
+    var address: String
+    var payex: String
+    var latitude : Double
+    var longitude : Double
+    var totalCar: Int
+    var parkingLotData: ParkingLotData
+    
+//    init?(from parkingLot: ParkingLotData) {
+//        guard let latitude = Double(parkingLot.y),
+//              let longitude = Double(parkingLot.x) else {
+//            return nil
+//        }
+//
+//        self.name = parkingLot.name
+//        self.totalCar = parkingLot.totalcar
+//        self.latitude = latitude
+//        self.longitude = longitude
+//        self.address = parkingLot.address
+//        self.payex = parkingLot.payex
+//        self.parkingLotData = parkingLot
+//    }
+    
+    var img = ""
+    var pricePerHour = 0
+    var distance = 0.0
+    var isFavorite = false
+    var isRecommend = false
+}
+
 struct ParkingLotData: Codable, Identifiable {
     let id: String
     let area: String

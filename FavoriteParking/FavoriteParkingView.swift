@@ -2,27 +2,37 @@ import SwiftUI
 
 struct FavoriteParkingView: View {
     
-    let favorieParkingData: [FavoriteParking]
-    
+    @Binding var parkingLotData: [ParkingLotDataForApp]
     @State private var sortByPrice = false
+    @State private var toRemoveFavoriteList:[Int] = []
     
-    var sortedParkingData: [FavoriteParking] {
+    var favorieParkingData: [ParkingLotDataForApp] {
+        parkingLotData.filter { $0.isFavorite || $0.isRecommend }
+    }
+    
+    var sortedParkingData: [(data: ParkingLotDataForApp, originalIndex: Int)] {
+        let favoriteItems = parkingLotData.enumerated().filter { $0.element.isFavorite }
         if sortByPrice {
-            return favorieParkingData.sorted { $0.pricePerHour < $1.pricePerHour }
-        } else {
-            return favorieParkingData.sorted { $0.distance < $1.distance }
+            let sortedItems = favoriteItems.sorted { $0.element.pricePerHour < $1.element.pricePerHour }
+            return sortedItems.map { ($0.element, $0.offset) }
+        }
+        else {
+            let sortedItems = favoriteItems.sorted { $0.element.distance < $1.element.distance }
+            return sortedItems.map { ($0.element, $0.offset) }
         }
     }
     
     var body: some View {
         NavigationStack {
             ZStack {
+                
                 VStack {
                     ScrollView {
                         VStack {
                             Spacer().frame(height: 30)
-                            ForEach(sortedParkingData) { parking in
-                                ParkingView(parkingData: parking)
+                            ForEach(sortedParkingData.indices, id: \.self) { index in
+                                let parking = sortedParkingData[index]
+                                ParkingView(parkingData: parking.data, id: parking.originalIndex, toRemoveFavoriteList: $toRemoveFavoriteList)
                                 Spacer().frame(height: 20)
                             }
                         }
@@ -76,6 +86,11 @@ struct FavoriteParkingView: View {
                 .offset(x: 0, y:342)
             }
         }
+        .onDisappear {
+            for id in toRemoveFavoriteList {
+                parkingLotData[id].isFavorite = false
+            }
+        }
         .navigationTitle("常用停車場")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -102,15 +117,6 @@ struct FavoriteParkingView: View {
 
 #Preview {
     
-    NavigationStack {
-        FavoriteParkingView(favorieParkingData: [
-            FavoriteParking(img: "", name:"A停車場", pricePerHour: 10, distance: 1.2, isRecommend: false),
-            FavoriteParking(img: "", name:"B停車場", pricePerHour: 20, distance: 1.0, isRecommend: true),
-            FavoriteParking(img: "", name:"C停車場", pricePerHour: 30, distance: 0.8, isRecommend: false),
-            FavoriteParking(img: "", name:"D停車場", pricePerHour: 40, distance: 0.6, isRecommend: false),
-            FavoriteParking(img: "", name:"E停車場", pricePerHour: 50, distance: 0.4, isRecommend: true),
-            FavoriteParking(img: "", name:"F停車場", pricePerHour: 60, distance: 0.2, isRecommend: true)
-        ])
+    ContentView()
         .environmentObject(GlobalState.shared)
-    }
 }
