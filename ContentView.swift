@@ -16,7 +16,7 @@ struct ContentView: View {
             if locationManager.userLocation == nil {
                 LocationRequestView()
             }
-            else if let location = locationManager.userLocation {
+            else if locationManager.userLocation != nil {
                 
                 NavigationStack {
                     
