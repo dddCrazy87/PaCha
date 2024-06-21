@@ -11,7 +11,9 @@ struct MapView: View {
     
     // map item
     @Binding var selectedItem: MKMapItem?
-    @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
+    @State private var cameraPosition: MapCameraPosition = .automatic
+    @ObservedObject var locationManager = LocationManager.shared
+    @State private var userCoordinate: CLLocationCoordinate2D?
     
     // search function
     @State private var searchText = ""
@@ -21,19 +23,21 @@ struct MapView: View {
         ZStack {
             Map(position: $cameraPosition, selection: $selectedItem) {
                 
-                Annotation("現在位置", coordinate: .userLocation) {
-                    ZStack {
-                        Circle()
-                            .frame(width: 32, height: 32)
-                            .foregroundColor(.blue.opacity(0.25))
-                        Circle()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.white)
-                        Circle()
-                            .frame(width: 12, height: 12)
-                            .foregroundColor(.blue)
+                if let userCoordinate {
+                    Annotation("現在位置", coordinate: userCoordinate) {
+                        ZStack {
+                            Circle()
+                                .frame(width: 32, height: 32)
+                                .foregroundColor(.blue.opacity(0.25))
+                            Circle()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.white)
+                            Circle()
+                                .frame(width: 12, height: 12)
+                                .foregroundColor(.blue)
+                        }
+                        
                     }
-                    
                 }
                 
                 ForEach(parkingLotData.indices, id: \.self) { index in
@@ -149,7 +153,11 @@ struct MapView: View {
             }
             
             Button {
-                cameraPosition = .region(.userRegion)
+                withAnimation(.easeInOut(duration: 3)) {
+                    if let location = locationManager.userLocation?.coordinate {
+                        cameraPosition = .region(MKCoordinateRegion(center: location, latitudinalMeters: 500, longitudinalMeters: 500))
+                    }
+                }
             } label: {
                 Image("TrackUserPosition")
                     .resizable()
@@ -157,50 +165,81 @@ struct MapView: View {
             }
             .offset(x:160, y:250)
         }
-    }
-}
+        .onAppear {
+            if let location = locationManager.userLocation?.coordinate {
+                cameraPosition = .region(MKCoordinateRegion(center: location, latitudinalMeters: 500, longitudinalMeters: 500))
+            }
+        }
+        .onReceive(locationManager.$userLocation) { location in
+            if let location {
 
-extension CLLocationCoordinate2D {
-    static var userLocation: CLLocationCoordinate2D {
-        return .init(latitude: 25.021532926656562, longitude: 121.53427320263013)
-    }
-}
+                guard let currentCoordinate = userCoordinate else {
+                    userCoordinate = location.coordinate
+                    return
+                }
 
-extension MKCoordinateRegion {
-    static var userRegion: MKCoordinateRegion {
-        return .init(center: .userLocation,
-                     latitudinalMeters: 500,
-                     longitudinalMeters: 500)
+                let distance = calculateDistance(from: currentCoordinate, to:  location.coordinate)
+                if distance > 0 {
+                    userCoordinate = location.coordinate
+                }
+            }
+        }
     }
 }
 
 extension MapView {
     func searchPlaces() async {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = searchText
-        request.region = .userRegion
-        
-        let results = try? await MKLocalSearch(request: request).start()
-        self.results = results?.mapItems ?? []
+        if let userCoordinate {
+            let request = MKLocalSearch.Request()
+            request.naturalLanguageQuery = searchText
+            request.region = MKCoordinateRegion(center: userCoordinate, latitudinalMeters: 800, longitudinalMeters: 800)
+            
+            let results = try? await MKLocalSearch(request: request).start()
+            self.results = results?.mapItems ?? []
+        }
     }
 }
 
 extension MapView {
     func getDirections() {
-        self.route = nil
-        
-        guard selectedItem != nil else { return }
-        
-        let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: .userLocation))
-        request.destination = self.selectedItem
-        
-        Task {
-            let directions = MKDirections(request: request)
-            let response = try? await directions.calculate()
-            route = response?.routes.first
+        if let location = locationManager.userLocation?.coordinate {
+            self.route = nil
+            
+            guard selectedItem != nil else { return }
+            
+            let request = MKDirections.Request()
+            request.source = MKMapItem(placemark: MKPlacemark(coordinate: location))
+            request.destination = self.selectedItem
+            request.transportType = .automobile
+            
+            Task {
+                let directions = MKDirections(request: request)
+                let response = try? await directions.calculate()
+                route = response?.routes.first
+                print(route?.steps.map{ $0.description } ?? "a" )
+                print(route?.steps.map{ $0.distance } ?? "a" )
+                print(route?.steps.map{ $0.instructions } ?? "a" )
+                print(route?.steps.map{ $0.notice } ?? "a" )
+                print(route?.steps.map{ $0.polyline } ?? "a" )
+                print(route?.steps.map{ $0.transportType } ?? "a" )
+            }
         }
     }
+}
+
+private func calculateDistance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> Double {
+    let R = 6371000.0
+    let lat1 = from.latitude * .pi / 180
+    let lat2 = to.latitude * .pi / 180
+    let dLat = (to.latitude - from.latitude) * .pi / 180
+    let dLon = (to.longitude - from.longitude) * .pi / 180
+
+    let a = sin(dLat / 2) * sin(dLat / 2) +
+            cos(lat1) * cos(lat2) *
+            sin(dLon / 2) * sin(dLon / 2)
+    let c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    return R * c
 }
 
 #Preview {

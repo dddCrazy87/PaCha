@@ -4,25 +4,24 @@ import MapKit
 struct HomeView: View {
     
     @Binding var parkingLotData: [ParkingLotDataForApp]
-    @State var parkingLotSelectedIndex: Int?
-    
+    @State private var parkingLotSelectedIndex: Int?
     @State private var showParkingLotDetail = false
-    @State private var showSmartNav = false
-    
     @State private var selectedItem: MKMapItem?
+    @State private var isNavigating = false
+    @State private var showSmartNav = false
     
     var body: some View {
         
         ZStack {
             if !parkingLotData.isEmpty {
-                ZStack {
+                if isNavigating {
+                    Text("isNa")
+                }
+                else {
                     MapView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, showParkingLotDetail: $showParkingLotDetail, selectedItem: $selectedItem)
                         .onTapGesture {
                             showParkingLotDetail = false
                             showSmartNav = false
-                        }
-                        .onChange(of: parkingLotData[parkingLotSelectedIndex ?? 0].isFavorite) { oldValue, newValue in
-                            print(parkingLotData[parkingLotSelectedIndex ?? 0].name)
                         }
                 }
             }
@@ -31,10 +30,7 @@ struct HomeView: View {
             }
             
             if showParkingLotDetail {
-                ParkingNavView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, selectedItem: $selectedItem, toShowParkingDetail: $showParkingLotDetail)
-                    .onAppear {
-                        print("Detail apear")
-                    }
+                ParkingNavView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, selectedItem: $selectedItem, toShowParkingDetail: $showParkingLotDetail, isNavigating: $isNavigating)
             }
             
             if showSmartNav {
@@ -97,8 +93,6 @@ struct HomeView: View {
         }
     }
 }
-
-
 
 #Preview {
     NavigationStack {
