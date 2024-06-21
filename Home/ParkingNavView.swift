@@ -24,7 +24,7 @@ struct ParkingNavView: View {
                     Button {
                         parkingLotData[parkingLotSelectedIndex ?? 0].isFavorite.toggle()
                     } label: {
-                        if (parkingLotData[parkingLotSelectedIndex!].isFavorite != nil && parkingLotData[parkingLotSelectedIndex ?? 0].isFavorite) {
+                        if (parkingLotData[parkingLotSelectedIndex ?? 0].isFavorite) {
                             Image("Heart_filled")
                                 .resizable()
                                 .frame(width: 27, height: 22)
