@@ -17,7 +17,8 @@ struct MapView: View {
     
     // search function
     @State private var searchText = ""
-    @State private var results = [MKMapItem]()
+    @State private var searchResults = [MKMapItem]()
+    @State private var result = MKMapItem()
     
     var body: some View {
         ZStack {
@@ -109,10 +110,7 @@ struct MapView: View {
                     }
                 }
                 
-                ForEach(results, id: \.self) {item in
-                    let placemark = item.placemark
-                    Marker(placemark.name ?? "", coordinate: placemark.coordinate)
-                }
+                Marker(result.name ?? "", coordinate: result.placemark.coordinate)
                 
                 if let route {
                     MapPolyline(route)
@@ -120,33 +118,10 @@ struct MapView: View {
                 }
             }
             .overlay(alignment: .top) {
-                HStack {
-                    Image("Search")
-                        .resizable()
-                        .frame(width: 23, height: 23)
-                        .padding(.leading, 30)
-                    
-                    TextField("搜尋", text: $searchText)
-                        .font(.system(size: 20))
-                        .padding(.leading, 5)
-                        .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                        .fixedSize(horizontal: false, vertical: true)
-                    
-                    Image("Micphone")
-                        .resizable()
-                        .frame(width: 18, height: 25)
-                        .padding(.trailing, 30)
-                }
-                .background {
-                    RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(Color.white.opacity(0.85))
-                        .frame(width: 370, height: 50)
-                }
-                .offset(y:20)
-                
-            }
-            .onSubmit(of: .text) {
-                Task { await searchPlaces() }
+                MapSearchView(searchText: $searchText, searchResults: $searchResults, result: $result, cameraPosition: $cameraPosition)
+                    .onChange(of: searchText) {
+                        Task { await searchPlaces() }
+                    }
             }
             .onChange(of: selectedItem) {
                 getDirections()
@@ -179,7 +154,7 @@ struct MapView: View {
                 }
 
                 let distance = calculateDistance(from: currentCoordinate, to:  location.coordinate)
-                if distance > 0 {
+                if distance > 5 {
                     userCoordinate = location.coordinate
                 }
             }
@@ -192,10 +167,10 @@ extension MapView {
         if let userCoordinate {
             let request = MKLocalSearch.Request()
             request.naturalLanguageQuery = searchText
-            request.region = MKCoordinateRegion(center: userCoordinate, latitudinalMeters: 800, longitudinalMeters: 800)
+            request.region = MKCoordinateRegion(center: userCoordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
             
             let results = try? await MKLocalSearch(request: request).start()
-            self.results = results?.mapItems ?? []
+            searchResults = results?.mapItems ?? []
         }
     }
 }
