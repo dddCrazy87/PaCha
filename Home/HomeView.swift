@@ -15,10 +15,10 @@ struct HomeView: View {
         ZStack {
             if !parkingLotData.isEmpty {
                 if isNavigating {
-                    NavigationView(selectedItem: $selectedItem)
+                    NavigationView(selectedItem: $selectedItem, isNavigating: $isNavigating)
                 }
                 else {
-                    MapView(parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, showParkingLotDetail: $showParkingLotDetail, selectedItem: $selectedItem)
+                    MapView(isNavigating: $isNavigating, parkingLotData: $parkingLotData, parkingLotSelectedIndex: $parkingLotSelectedIndex, showParkingLotDetail: $showParkingLotDetail, selectedItem: $selectedItem)
                         .onTapGesture {
                             showParkingLotDetail = false
                             showSmartNav = false
@@ -37,59 +37,61 @@ struct HomeView: View {
                 SmartNavView()
             }
             
-            HStack {
-                Button {
-                    GlobalState.shared.viewController = "HomeView"
-                } label: {
-                    Image("Home_selected")
-                        .resizable()
-                        .frame(width: 25, height: 25)
+            if !isNavigating {
+                HStack {
+                    Button {
+                        GlobalState.shared.viewController = "HomeView"
+                    } label: {
+                        Image("Home_selected")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    .padding(.leading, 20)
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "AssistantView"
+                    } label: {
+                        Image("Assistant")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        showSmartNav.toggle()
+                    } label: {
+                        Image("SmartSearch")
+                            .resizable()
+                            .frame(width: 80, height: 80)
+                    }
+                    .offset(y: -35)
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "FavoriteParkingView"
+                    } label: {
+                        Image("Favorite")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    Spacer()
+                    Button {
+                        GlobalState.shared.viewController = "SettingView"
+                    } label: {
+                        Image("Setting")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                    .padding(.trailing, 20)
                 }
-                .padding(.leading, 20)
-                Spacer()
-                Button {
-                    GlobalState.shared.viewController = "AssistantView"
-                } label: {
-                    Image("Assistant")
+                .padding(.horizontal, 20)
+                .background {
+                    Image("HomeToolBarBg")
                         .resizable()
-                        .frame(width: 25, height: 25)
+                        .frame(width: 400, height: 140)
+                        .shadow(radius:10)
+                        .offset(x:-1.66, y:5)
                 }
-                Spacer()
-                Button {
-                    showSmartNav.toggle()
-                } label: {
-                    Image("SmartSearch")
-                        .resizable()
-                        .frame(width: 80, height: 80)
-                }
-                .offset(y: -35)
-                Spacer()
-                Button {
-                    GlobalState.shared.viewController = "FavoriteParkingView"
-                } label: {
-                    Image("Favorite")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                }
-                Spacer()
-                Button {
-                    GlobalState.shared.viewController = "SettingView"
-                } label: {
-                    Image("Setting")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                }
-                .padding(.trailing, 20)
+                .offset(x: 0, y:360)
             }
-            .padding(.horizontal, 20)
-            .background {
-                Image("HomeToolBarBg")
-                    .resizable()
-                    .frame(width: 400, height: 140)
-                    .shadow(radius:10)
-                    .offset(x:-1.66, y:5)
-            }
-            .offset(x: 0, y:360)
         }
     }
 }

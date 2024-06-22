@@ -3,6 +3,8 @@ import MapKit
 
 struct MapView: View {
     
+    @Binding var isNavigating: Bool
+    
     // parking lot data
     @Binding var parkingLotData: [ParkingLotDataForApp]
     @Binding var parkingLotSelectedIndex: Int?
@@ -110,7 +112,17 @@ struct MapView: View {
                     }
                 }
                 
-                Marker(result.name ?? "", coordinate: result.placemark.coordinate)
+                Annotation(result.name ?? "", coordinate: result.placemark.coordinate) {
+                    Button {
+                        selectedItem = result
+                        isNavigating = true
+                    } label: {
+                        Image("ParkingLot_less_than_10")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                    }
+                }
                 
                 if let route {
                     MapPolyline(route)
@@ -122,9 +134,6 @@ struct MapView: View {
                     .onChange(of: searchText) {
                         Task { await searchPlaces() }
                     }
-            }
-            .onChange(of: selectedItem) {
-                getDirections()
             }
             
             Button {
@@ -175,32 +184,26 @@ extension MapView {
     }
 }
 
-extension MapView {
-    func getDirections() {
-        if let location = locationManager.userLocation?.coordinate {
-            self.route = nil
-            
-            guard selectedItem != nil else { return }
-            
-            let request = MKDirections.Request()
-            request.source = MKMapItem(placemark: MKPlacemark(coordinate: location))
-            request.destination = self.selectedItem
-            request.transportType = .automobile
-            
-            Task {
-                let directions = MKDirections(request: request)
-                let response = try? await directions.calculate()
-                route = response?.routes.first
-                print(route?.steps.map{ $0.description } ?? "a" )
-                print(route?.steps.map{ $0.distance } ?? "a" )
-                print(route?.steps.map{ $0.instructions } ?? "a" )
-                print(route?.steps.map{ $0.notice } ?? "a" )
-                print(route?.steps.map{ $0.polyline } ?? "a" )
-                print(route?.steps.map{ $0.transportType } ?? "a" )
-            }
-        }
-    }
-}
+//extension MapView {
+//    func getDirections() {
+//        if let location = locationManager.userLocation?.coordinate {
+//            self.route = nil
+//            
+//            guard selectedItem != nil else { return }
+//            
+//            let request = MKDirections.Request()
+//            request.source = MKMapItem(placemark: MKPlacemark(coordinate: location))
+//            request.destination = self.selectedItem
+//            request.transportType = .automobile
+//            
+//            Task {
+//                let directions = MKDirections(request: request)
+//                let response = try? await directions.calculate()
+//                route = response?.routes.first
+//            }
+//        }
+//    }
+//}
 
 #Preview {
     ContentView()
