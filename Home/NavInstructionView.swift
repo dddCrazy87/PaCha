@@ -91,7 +91,7 @@ struct NavInstructionView: View {
             Spacer().frame(height: 650)
             HStack {
                 VStack {
-                    Text("\(String(format: "%.2f", expectedTravelTime/60))分鐘")
+                    Text("\(String(format: "%.0f", expectedTravelTime/60))分鐘")
                         .font(.title)
                         .bold()
                         .padding(.vertical, 5)

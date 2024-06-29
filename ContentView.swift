@@ -16,37 +16,34 @@ struct ContentView: View {
             if locationManager.userLocation == nil {
                 LocationRequestView()
             }
-            else if locationManager.userLocation != nil {
-                
+            else if parkingLotDataArray.isEmpty {
+                LoadingPageView()
+            }
+            else {
                 NavigationStack {
                     
-                    if !parkingLotDataArray.isEmpty {
+                    switch globalState.viewController {
                         
-                        switch globalState.viewController {
-                            
-                        case "HomeView":
-                            HomeView(parkingLotData: $parkingLotDataArrayForApp)
-                        case "AssistantView":
-                            AssistantView(historyParking: [])
-                        case "FavoriteParkingView":
-                            FavoriteParkingView(parkingLotData: $parkingLotDataArrayForApp)
-                        case "SettingView":
-                            SettingView()
-                        default:
-                            Text(GlobalState.shared.viewController)
-                        }
-                        
-                    } else {
-                        ProgressView()
+                    case "HomeView":
+                        HomeView(parkingLotData: $parkingLotDataArrayForApp)
+                    case "AssistantView":
+                        AssistantView(historyParking: [])
+                    case "FavoriteParkingView":
+                        FavoriteParkingView(parkingLotData: $parkingLotDataArrayForApp)
+                    case "SettingView":
+                        SettingView()
+                    default:
+                        Text(GlobalState.shared.viewController)
                     }
-                }
-                .onAppear {
-                    fetchParkingLotData()
                 }
             }
         }
         .onAppear {
             LocationManager.shared.requstLocation()
+            fetchParkingLotData()
+        }
+        .onChange(of: parkingLotDataArray.first?.name) { oldValue, newValue in
+            print("??")
         }
     }
 }
@@ -62,30 +59,6 @@ extension ContentView {
             return
         }
         
-//        URLSession.shared.dataTask(with: url) { data, response, error in
-//            if let data = data {
-//                if let decodedResponse = try? JSONDecoder().decode([ParkingLotData].self, from: data) {
-//                    DispatchQueue.main.async {
-//                        parkingLotDataArray = decodedResponse
-//                        
-//                        parkingLotDataArrayForApp = decodedResponse.map { parkingLot in
-//                            ParkingLotDataForApp(
-//                                name: parkingLot.name,
-//                                address: parkingLot.address,
-//                                payex: parkingLot.payex,
-//                                latitude: Double(parkingLot.y) ?? 0.0,
-//                                longitude: Double(parkingLot.x) ?? 0.0,
-//                                totalCar: parkingLot.totalcar,
-//                                parkingLotData: parkingLot
-//                            )
-//                        }
-//                    }
-//                    return
-//                }
-//            }
-//            
-//            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-//        }.resume()
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
