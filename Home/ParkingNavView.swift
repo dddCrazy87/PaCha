@@ -13,7 +13,7 @@ struct ParkingNavView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
                 .frame(width: 350, height: 315)
-                .foregroundColor(.white)
+                .foregroundColor(Color("MapDetailBg"))
                 .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             
             VStack {
@@ -53,7 +53,7 @@ struct ParkingNavView: View {
                     
                     Rectangle()
                         .frame(width: 1, height: 24)
-                        .foregroundColor(.orange)
+                        .foregroundColor(Color("MainOrange"))
                     
                     Image("Space")
                         .resizable()
@@ -64,7 +64,7 @@ struct ParkingNavView: View {
                     
                     Rectangle()
                         .frame(width: 1, height: 24)
-                        .foregroundColor(.orange)
+                        .foregroundColor(Color("MainOrange"))
                     
                     Image("Distance")
                         .resizable()
@@ -76,7 +76,7 @@ struct ParkingNavView: View {
                 
                 Rectangle()
                     .frame(width: 312, height: 2)
-                    .foregroundColor(.orange)
+                    .foregroundColor(Color("MainOrange"))
                     .padding(.vertical, 10)
                 
                 HStack {
@@ -126,7 +126,7 @@ struct ParkingNavView: View {
                     ZStack {
                         RoundedRectangle(cornerRadius: 30)
                             .frame(width: 285, height: 42)
-                            .foregroundColor(.orange)
+                            .foregroundColor(Color("MainOrange"))
                         
                         Image("Navigation")
                             .resizable()

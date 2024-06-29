@@ -25,7 +25,7 @@ struct MapSearchView: View {
                         } label: {
                             Image(systemName: "chevron.left")
                                 .resizable()
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("SearchText"))
                                 .frame(width: 15, height: 20)
                                 .padding(.leading, 30)
                         }
@@ -38,6 +38,7 @@ struct MapSearchView: View {
                     }
                     
                     TextField("搜尋", text: $searchText)
+                        .foregroundColor(Color("SearchText"))
                         .focused($isTextFieldFocused)
                         .font(.system(size: 20))
                         .padding(.leading, 5)
@@ -62,7 +63,6 @@ struct MapSearchView: View {
             if isTextFieldFocused {
                 List(searchResults, id: \.self) {item in
                     Button {
-                        print("pressed")
                         result = item
                         withAnimation(.easeInOut(duration: 10)) {
                             cameraPosition = .region(MKCoordinateRegion(center: result.placemark.coordinate, latitudinalMeters: 500, longitudinalMeters: 500))
@@ -74,7 +74,7 @@ struct MapSearchView: View {
                                 .font(.headline)
                             Text(item.placemark.title ?? "")
                                 .font(.subheadline)
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(Color("DetailTitle"))
                         }
                     }
                     .buttonStyle(PlainButtonStyle())

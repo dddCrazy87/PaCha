@@ -79,8 +79,8 @@ struct FavoriteParkingView: View {
                 .background {
                     Rectangle()
                         .frame(width: 400, height: 100)
-                        .foregroundColor(.white)
-                        .shadow(radius:10)
+                        .foregroundColor(Color("MainBg"))
+                        .shadow(color: Color("TabBarShadow"), radius:10)
                         .offset(y:5)
                 }
                 .offset(x: 0, y:342)

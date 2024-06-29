@@ -56,7 +56,7 @@ struct NavInstructionView: View {
                     bottomTrailing: 30,
                     topTrailing: 30),
                     style: .continuous)
-                .foregroundColor(.yellow)
+                .foregroundColor(Color("NavInstruction"))
                 .frame(width: 370, height: 90)
             }
             
@@ -79,7 +79,7 @@ struct NavInstructionView: View {
                     bottomTrailing: 15,
                     topTrailing: 0),
                     style: .continuous)
-                .foregroundColor(.gray)
+                .foregroundColor(Color("NavNextInstruction"))
                 .frame(width: 100, height: 45)
                 .offset(x:-135)
             }
@@ -110,7 +110,7 @@ struct NavInstructionView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background {
                 RoundedRectangle(cornerRadius: 25)
-                    .foregroundColor(.yellow)
+                    .foregroundColor(Color("NavInstruction"))
             }
             .ignoresSafeArea()
         }

@@ -7,7 +7,7 @@ struct SmartNavView: View {
             RoundedRectangle(cornerRadius: 25)
                 .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 .frame(width: 350, height: 415)
-                .foregroundColor(.white)
+                .foregroundColor(Color("MapDetailBg"))
             
             VStack {
                 Image("SmartSearch")

@@ -32,6 +32,7 @@ struct AssistantView: View {
                         
                         Text("6000")
                             .bold()
+                            .foregroundStyle(Color("AssistantDetail"))
                         
                         Text(" 公里")
                         
@@ -48,6 +49,7 @@ struct AssistantView: View {
                         
                         Text("2.3")
                             .bold()
+                            .foregroundStyle(Color("AssistantDetail"))
                         
                         Text(" 小時")
                         
@@ -64,6 +66,7 @@ struct AssistantView: View {
                         
                         Text("150")
                             .bold()
+                            .foregroundStyle(Color("AssistantDetail"))
                         
                         Text(" 公里")
                         
@@ -80,6 +83,7 @@ struct AssistantView: View {
                         
                         Text("50")
                             .bold()
+                            .foregroundStyle(Color("AssistantDetail"))
                         
                         Text(" 公里")
                         
@@ -100,6 +104,7 @@ struct AssistantView: View {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 25)
                                     .frame(width: 150, height: 40)
+                                    .foregroundColor(Color("AssistantBtn"))
                                 
                                 HStack {
                                     Image("ParkingSpaceID")
@@ -107,7 +112,6 @@ struct AssistantView: View {
                                         .frame(width: 20, height: 20)
                                     
                                     Text("停車編號紀錄")
-                                        .foregroundColor(.white)
                                 }
                             }
                         }
@@ -120,6 +124,7 @@ struct AssistantView: View {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 25)
                                     .frame(width: 150, height: 40)
+                                    .foregroundColor(Color("AssistantBtn"))
                                 
                                 HStack {
                                     Image("History")
@@ -127,7 +132,6 @@ struct AssistantView: View {
                                         .frame(width: 20, height: 20)
                                     
                                     Text("歷史停車紀錄")
-                                        .foregroundColor(.white)
                                 }
                             }
                         }
@@ -177,8 +181,8 @@ struct AssistantView: View {
                 .background {
                     Rectangle()
                         .frame(width: 400, height: 100)
-                        .foregroundColor(.white)
-                        .shadow(radius:10)
+                        .foregroundColor(Color("MainBg"))
+                        .shadow(color: Color("TabBarShadow"), radius:10)
                         .offset(y:5)
                 }
                 .offset(x: 0, y:342)

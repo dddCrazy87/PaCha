@@ -10,6 +10,8 @@ struct HomeView: View {
     @State private var isNavigating = false
     @State private var showSmartNav = false
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         
         ZStack {
@@ -84,11 +86,20 @@ struct HomeView: View {
                 }
                 .padding(.horizontal, 20)
                 .background {
-                    Image("HomeToolBarBg")
-                        .resizable()
-                        .frame(width: 400, height: 140)
-                        .shadow(radius:10)
-                        .offset(x:-1.66, y:5)
+                    if colorScheme == .dark {
+                        Image("HomeToolBarBg_dark")
+                            .resizable()
+                            .frame(width: 400, height: 140)
+                            .shadow(radius:10)
+                            .offset(x:-1.66, y:5)
+                    }
+                    else {
+                        Image("HomeToolBarBg")
+                            .resizable()
+                            .frame(width: 400, height: 140)
+                            .shadow(color: Color("TabBarShadow"), radius:10)
+                            .offset(x:-1.66, y:5)
+                    }
                 }
                 .offset(x: 0, y:360)
             }

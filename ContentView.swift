@@ -26,18 +26,23 @@ struct ContentView: View {
                         
                     case "HomeView":
                         HomeView(parkingLotData: $parkingLotDataArrayForApp)
+                            .background(Color("MainBg"))
                     case "AssistantView":
                         AssistantView(historyParking: [])
+                            .background(Color("MainBg"))
                     case "FavoriteParkingView":
                         FavoriteParkingView(parkingLotData: $parkingLotDataArrayForApp)
+                            .background(Color("MainBg"))
                     case "SettingView":
                         SettingView()
+                            .background(Color("MainBg"))
                     default:
                         Text(GlobalState.shared.viewController)
                     }
                 }
             }
         }
+        .foregroundColor(Color("MainFont"))
         .onAppear {
             LocationManager.shared.requstLocation()
             fetchParkingLotData()

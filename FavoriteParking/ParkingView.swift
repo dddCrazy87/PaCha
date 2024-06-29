@@ -13,7 +13,7 @@ struct ParkingView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
                 .frame(width: 314, height: 133)
-                .foregroundColor(.white)
+                .foregroundColor(Color("MainBg"))
                 .shadow(radius: 15)
             
             HStack(alignment:.top) {
@@ -74,7 +74,7 @@ struct ParkingView: View {
                         
                         Spacer()
                     }
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("DetailTitle"))
                     .padding(.top, 5)
                 }
                 .padding(.leading, 5)

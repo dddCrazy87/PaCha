@@ -32,7 +32,7 @@ struct ParkingIDView: View {
         
         ZStack {
             TicketShape()
-                .foregroundColor(.white)
+                .foregroundColor(Color("MainBg"))
                 .frame(width: 300, height: 500)
                 .cornerRadius(20)
                 .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
@@ -40,7 +40,6 @@ struct ParkingIDView: View {
             VStack {
                 
                 Text("停車場編號1")
-                    .foregroundColor(.white)
                     .bold()
                     .background() {
                         UnevenRoundedRectangle(cornerRadii: .init(
@@ -49,7 +48,7 @@ struct ParkingIDView: View {
                             bottomTrailing: 0,
                             topTrailing: 10), style: .continuous)
                             .frame(width: 300, height: 50)
-                            .foregroundColor(.orange)
+                            .foregroundColor(Color("MainOrange"))
                     }
                 
                 Spacer().frame(height: 450)
@@ -74,7 +73,7 @@ struct ParkingIDView: View {
                         
                         Text("台北市士林區中正路17號")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("TicketHeadline"))
                             .frame(maxWidth: 125)
                             .lineLimit(3)
                             .padding(.leading, 10)
@@ -89,7 +88,7 @@ struct ParkingIDView: View {
                     ForEach(0..<16) { index in
                         Rectangle()
                             .frame(width: 8, height: 1.5)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("DetailTitle"))
                     }
                 }
                 Spacer().frame(height: 165)
@@ -103,7 +102,7 @@ struct ParkingIDView: View {
                     VStack(alignment: .leading) {
                         Text("姓名")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("TicketHeadline"))
                             .padding(2)
                         Text("喬喬")
                             .font(.headline)
@@ -111,7 +110,7 @@ struct ParkingIDView: View {
                             .padding(2)
                         Text("停車場")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("TicketHeadline"))
                             .padding(2)
                         Text("A地下停車場")
                             .font(.headline)
@@ -119,7 +118,7 @@ struct ParkingIDView: View {
                             .padding(2)
                         Text("日期")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("TicketHeadline"))
                             .padding(2)
                         Text("2024/01/10")
                             .font(.headline)
@@ -133,7 +132,7 @@ struct ParkingIDView: View {
                     VStack(alignment: .leading) {
                         Text("車牌號碼")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("TicketHeadline"))
                             .padding(2)
                         Text("SVT-0526")
                             .font(.headline)
@@ -141,7 +140,7 @@ struct ParkingIDView: View {
                             .padding(2)
                         Text("停車樓層")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("TicketHeadline"))
                             .padding(2)
                         Text("B2")
                             .font(.headline)
@@ -149,7 +148,7 @@ struct ParkingIDView: View {
                             .padding(2)
                         Text("時間")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("TicketHeadline"))
                             .padding(2)
                         Text("30 min")
                             .font(.headline)
@@ -166,7 +165,7 @@ struct ParkingIDView: View {
                     ForEach(0..<17) { index in
                         Rectangle()
                             .frame(width: 8, height: 1.5)
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("DetailTitle"))
                     }
                 }
             }
@@ -176,8 +175,8 @@ struct ParkingIDView: View {
                 HStack {
                     Text("所需付金額：")
                         .font(.headline)
-                        .foregroundColor(.gray)
                         .padding(.leading, 70)
+                        .foregroundColor(Color("TicketHeadline"))
                     Spacer()
                     Text("$120")
                         .font(.title2)

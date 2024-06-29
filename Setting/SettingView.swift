@@ -38,7 +38,7 @@ struct SettingView: View {
                                     .font(.title2)
                                     .bold()
                                 Text("密碼‧帳號安全‧個人資料·備份")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Color("SettingDetail"))
                                     .font(.caption)
                                     .bold()
                             }
@@ -89,7 +89,7 @@ struct SettingView: View {
                                     .bold()
                                 
                                 Text("字體‧通知‧地圖路況")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Color("SettingDetail"))
                                     .font(.caption)
                                     .bold()
                             }
@@ -229,16 +229,13 @@ struct SettingView: View {
                 .background {
                     Rectangle()
                         .frame(width: 400, height: 100)
-                        .foregroundColor(.white)
-                        .shadow(radius:10)
+                        .foregroundColor(Color("MainBg"))
+                        .shadow(color: Color("TabBarShadow"), radius:10)
                         .offset(y:5)
                 }
                 .offset(x: 0, y:342)
             }
         }
-        
-        
-        .foregroundColor(.black)
         .navigationTitle("設定")
         .navigationBarTitleDisplayMode(.inline)
         
@@ -251,7 +248,7 @@ struct SettingView: View {
             }
             .padding()
             .bold()
-            .presentationDetents([.fraction(0.3)])
+            .presentationDetents([.fraction(0.2)])
             .presentationDragIndicator(.visible)
         }
         
@@ -261,11 +258,9 @@ struct SettingView: View {
                 Text("字體大小")
                 Toggle("訊息通知", isOn: $isNotificationOn)
                 Toggle("地圖路況顯示", isOn: $isMapStatusOn)
-                Text("地圖路況顯示")
-                    .bold()
             }
             .padding()
-            .presentationDetents([.fraction(0.3)])
+            .presentationDetents([.fraction(0.2)])
             .presentationDragIndicator(.visible)
         }
     }
