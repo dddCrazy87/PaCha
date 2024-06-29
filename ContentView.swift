@@ -58,33 +58,83 @@ struct ContentView: View {
 
 extension ContentView {
     func fetchParkingLotData() {
-        guard let url = URL(string: "https://run.mocky.io/v3/c65aa119-3ed4-4163-89f6-75dc7a23bb10") else {
+        guard let url = URL(string: "https://run.mocky.io/v3/860ba115-5c35-4323-8728-e45ed9c64ed2") else {
             return
         }
         
+//        URLSession.shared.dataTask(with: url) { data, response, error in
+//            if let data = data {
+//                if let decodedResponse = try? JSONDecoder().decode([ParkingLotData].self, from: data) {
+//                    DispatchQueue.main.async {
+//                        parkingLotDataArray = decodedResponse
+//                        
+//                        parkingLotDataArrayForApp = decodedResponse.map { parkingLot in
+//                            ParkingLotDataForApp(
+//                                name: parkingLot.name,
+//                                address: parkingLot.address,
+//                                payex: parkingLot.payex,
+//                                latitude: Double(parkingLot.y) ?? 0.0,
+//                                longitude: Double(parkingLot.x) ?? 0.0,
+//                                totalCar: parkingLot.totalcar,
+//                                parkingLotData: parkingLot
+//                            )
+//                        }
+//                    }
+//                    return
+//                }
+//            }
+//            
+//            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+//        }.resume()
+        
         URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                if let decodedResponse = try? JSONDecoder().decode([ParkingLotData].self, from: data) {
-                    DispatchQueue.main.async {
-                        parkingLotDataArray = decodedResponse
-                        
-                        parkingLotDataArrayForApp = decodedResponse.map { parkingLot in
-                            ParkingLotDataForApp(
-                                name: parkingLot.name,
-                                address: parkingLot.address,
-                                payex: parkingLot.payex,
-                                latitude: Double(parkingLot.y) ?? 0.0,
-                                longitude: Double(parkingLot.x) ?? 0.0,
-                                totalCar: parkingLot.totalcar,
-                                parkingLotData: parkingLot
-                            )
-                        }
-                    }
-                    return
-                }
+            if let error = error {
+                print("Network error: \(error.localizedDescription)")
+                return
             }
             
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                print("Invalid response")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                
+                let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] ?? []
+                
+                let decodedResponse = jsonArray.compactMap { element -> ParkingLotData? in
+                    guard let elementData = try? JSONSerialization.data(withJSONObject: element) else {
+                        return nil
+                    }
+                    return try? decoder.decode(ParkingLotData.self, from: elementData)
+                }
+                
+                print("Successfully decoded \(decodedResponse.count) out of \(jsonArray.count) items")
+                
+                DispatchQueue.main.async {
+                    parkingLotDataArray = decodedResponse
+                    parkingLotDataArrayForApp = decodedResponse.map { parkingLot in
+                        ParkingLotDataForApp(
+                            name: parkingLot.name,
+                            address: parkingLot.address,
+                            payex: parkingLot.payex,
+                            latitude: Double(parkingLot.y) ?? 0.0,
+                            longitude: Double(parkingLot.x) ?? 0.0,
+                            totalCar: parkingLot.totalcar,
+                            parkingLotData: parkingLot
+                        )
+                    }
+                }
+            } catch {
+                print("Error processing data: \(error)")
+            }
         }.resume()
     }
 }
