@@ -64,7 +64,7 @@ struct ParkingView: View {
                     .padding(.trailing, 55)
                     
                     HStack {
-                        Text("$"+String(parkingData.pricePerHour)+"/hr")
+                        Text("$\(parkingData.pricePerHour)/hr")
                             .font(.caption2)
                         
                         Divider().frame(height: 12)

@@ -60,7 +60,7 @@ struct ParkingNavView: View {
                                 .frame(width: 20, height: 20)
                         }
                         
-                        Text("\(findPayex(from: parkingLotData[parkingLotSelectedIndex].payex))/hr")
+                        Text("\(parkingLotData[parkingLotSelectedIndex].pricePerHour)/hr")
                             .bold()
                         
                         Rectangle()
@@ -78,7 +78,7 @@ struct ParkingNavView: View {
                                 .frame(width: 25, height: 17)
                         }
                         
-                        Text("30")
+                        Text("\(parkingLotData[parkingLotSelectedIndex].totalCar)")
                             .bold()
                         
                         Rectangle()
@@ -96,7 +96,7 @@ struct ParkingNavView: View {
                                 .frame(width: 12, height: 15)
                         }
                         
-                        Text("0.3公里")
+                        Text("\(String(format: "%.1f", parkingLotData[parkingLotSelectedIndex].distance))公里")
                             .bold()
                     }
                     

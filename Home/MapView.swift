@@ -49,8 +49,16 @@ struct MapView: View {
                     if parkingLot.totalCar >= 100 {
                         Annotation("", coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)) {
                             Button {
+                                selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)))
                                 parkingLotSelectedIndex = index
-                                showParkingLotDetail = true
+                                if let parkingLotSelectedIndex {
+                                    Task {
+                                        parkingLotData[parkingLotSelectedIndex].distance = await getDistance()
+                                        parkingLotData[parkingLotSelectedIndex].distance /= 1000
+                                        parkingLotData[parkingLotSelectedIndex].pricePerHour = payex
+                                        showParkingLotDetail = true
+                                    }
+                                }
                             } label: {
                                 ZStack {
                                     Image("ParkingLot_more_than_100")
@@ -172,11 +180,6 @@ struct MapView: View {
                             .frame(width: 50, height: 50)
                     }
                 }
-                
-                if let route {
-                    MapPolyline(route)
-                        .stroke(.blue, lineWidth: 5)
-                }
             }
             .overlay(alignment: .top) {
                 MapSearchView(searchText: $searchText, searchResults: $searchResults, result: $result, cameraPosition: $cameraPosition)
@@ -233,26 +236,31 @@ extension MapView {
     }
 }
 
-//extension MapView {
-//    func getDirections() {
-//        if let location = locationManager.userLocation?.coordinate {
-//            self.route = nil
-//            
-//            guard selectedItem != nil else { return }
-//            
-//            let request = MKDirections.Request()
-//            request.source = MKMapItem(placemark: MKPlacemark(coordinate: location))
-//            request.destination = self.selectedItem
-//            request.transportType = .automobile
-//            
-//            Task {
-//                let directions = MKDirections(request: request)
-//                let response = try? await directions.calculate()
-//                route = response?.routes.first
-//            }
-//        }
-//    }
-//}
+extension MapView {
+    func getDistance() async -> Double {
+        guard let location = locationManager.userLocation?.coordinate else { return 0.0 }
+        guard let selectedItem = self.selectedItem else { return 0.0 }
+        
+        self.route = nil
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: location))
+        request.destination = selectedItem
+        request.transportType = .automobile
+        
+        let directions = MKDirections(request: request)
+        do {
+            let response = try await directions.calculate()
+            if let route = response.routes.first {
+                self.route = route
+                return route.distance
+            }
+        } catch {
+            print("Error calculating route: \(error)")
+        }
+        return 0.0
+    }
+}
 
 #Preview {
     ContentView()

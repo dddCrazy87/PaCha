@@ -105,8 +105,6 @@ extension NavigationView {
                 route = response?.routes.first
                 
                 if let route {
-//                    print(route.expectedTravelTime, type(of: route.expectedTravelTime))
-                    print(route.distance)
                     routeSteps = route.steps.map{($0.polyline.coordinate, $0.instructions)}
                     expectedTravelTime = route.expectedTravelTime
                 }
