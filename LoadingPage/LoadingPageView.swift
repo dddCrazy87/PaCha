@@ -4,7 +4,7 @@ struct LoadingPageView: View {
     var body: some View {
         VStack{
             GifImageView("loading")
-                .frame(width: 400, height: 400)
+                .frame(width: 250, height: 250)
             
 //            Text("PaCha")
 //                .font(.title)

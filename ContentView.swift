@@ -47,9 +47,6 @@ struct ContentView: View {
             LocationManager.shared.requstLocation()
             fetchParkingLotData()
         }
-        .onChange(of: parkingLotDataArray.first?.name) { oldValue, newValue in
-            print("??")
-        }
     }
 }
 
