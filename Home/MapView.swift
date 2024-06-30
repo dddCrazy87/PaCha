@@ -95,8 +95,16 @@ struct MapView: View {
                         
                         Annotation("", coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)) {
                             Button {
+                                selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)))
                                 parkingLotSelectedIndex = index
-                                showParkingLotDetail = true
+                                if let parkingLotSelectedIndex {
+                                    Task {
+                                        parkingLotData[parkingLotSelectedIndex].distance = await getDistance()
+                                        parkingLotData[parkingLotSelectedIndex].distance /= 1000
+                                        parkingLotData[parkingLotSelectedIndex].pricePerHour = payex
+                                        showParkingLotDetail = true
+                                    }
+                                }
                             } label: {
                                 ZStack {
                                     Image("ParkingLot_less_than_50")
@@ -133,8 +141,16 @@ struct MapView: View {
                     else {
                         Annotation("", coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)) {
                             Button {
+                                selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)))
                                 parkingLotSelectedIndex = index
-                                showParkingLotDetail = true
+                                if let parkingLotSelectedIndex {
+                                    Task {
+                                        parkingLotData[parkingLotSelectedIndex].distance = await getDistance()
+                                        parkingLotData[parkingLotSelectedIndex].distance /= 1000
+                                        parkingLotData[parkingLotSelectedIndex].pricePerHour = payex
+                                        showParkingLotDetail = true
+                                    }
+                                }
                             } label: {
                                 ZStack {
                                     Image("ParkingLot_less_than_10")
@@ -174,7 +190,7 @@ struct MapView: View {
                         selectedItem = result
                         isNavigating = true
                     } label: {
-                        Image("ParkingLot_less_than_10")
+                        Image("Goal")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50, height: 50)
