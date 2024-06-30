@@ -150,3 +150,29 @@ func calculateDistance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D)
 
     return R * c
 }
+
+func findPayex(from text: String) -> Int {
+    
+    // X元/時
+    // 小型車計時X元
+    // 計時X元
+    
+    let patterns = [
+            #"(\d+)元/時"#,
+            #"小型車計時(\d+)元"#,
+            #"計時(\d+)元"#
+        ]
+        
+    for pattern in patterns {
+        guard let regex = try? NSRegularExpression(pattern: pattern) else {
+            continue
+        }
+        
+        if let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)),
+           let range = Range(match.range(at: 1), in: text),
+           let rate = Int(text[range]) {
+            return rate
+        }
+    }
+    return -1
+}

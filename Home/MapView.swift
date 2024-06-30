@@ -58,7 +58,14 @@ struct MapView: View {
                                         .scaledToFit()
                                         .frame(width: 50, height: 50)
                                     
-                                    if payex < 100 {
+                                    if payex == -1 {
+                                        Text("100+")
+                                            .font(.system(size: 8))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
+                                    else if payex <= 100 {
                                         Text("\(payex)")
                                             .font(.system(size: 10))
                                             .bold()
@@ -89,7 +96,14 @@ struct MapView: View {
                                         .scaledToFit()
                                         .frame(width: 50, height: 50)
                                     
-                                    if payex < 100 {
+                                    if payex == -1 {
+                                        Text("100+")
+                                            .font(.system(size: 8))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
+                                    else if payex <= 100 {
                                         Text("\(payex)")
                                             .font(.system(size: 10))
                                             .bold()
@@ -120,7 +134,14 @@ struct MapView: View {
                                         .scaledToFit()
                                         .frame(width: 50, height: 50)
                                     
-                                    if payex < 100 {
+                                    if payex == -1 {
+                                        Text("100+")
+                                            .font(.system(size: 8))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
+                                    else if payex <= 100 {
                                         Text("\(payex)")
                                             .font(.system(size: 10))
                                             .bold()
@@ -209,34 +230,6 @@ extension MapView {
             let results = try? await MKLocalSearch(request: request).start()
             searchResults = results?.mapItems ?? []
         }
-    }
-}
-
-extension MapView {
-    func findPayex(from text: String) -> Int {
-        
-        // X元/時
-        // 小型車計時X元
-        // 計時X元
-        
-        let patterns = [
-                #"(\d+)元/時"#,
-                #"小型車計時(\d+)元"#,
-                #"計時(\d+)元"#
-            ]
-            
-        for pattern in patterns {
-            guard let regex = try? NSRegularExpression(pattern: pattern) else {
-                continue
-            }
-            
-            if let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)),
-               let range = Range(match.range(at: 1), in: text),
-               let rate = Int(text[range]) {
-                return rate
-            }
-        }
-        return 100
     }
 }
 
