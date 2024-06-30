@@ -4,9 +4,9 @@ struct ParkingView: View {
     
     let parkingData:ParkingLotDataForApp
     let id: Int
-    @Binding var toRemoveFavoriteList:[Int]
-    
-    @State private var isPressedFavorite = false
+    @Binding var lastedRemovedIndex:Int
+    @Binding var parkingLotData: [ParkingLotDataForApp]
+    @Binding var showUndoView:Bool
     
     var body: some View {
         
@@ -40,21 +40,17 @@ struct ParkingView: View {
                         }
                         
                         Button {
-                            isPressedFavorite.toggle()
-                            if isPressedFavorite {
-                                toRemoveFavoriteList.append(id)
-                            }
-                            else {
-                                toRemoveFavoriteList.removeAll{$0 == id}
-                            }
+                            showUndoView = true
+                            lastedRemovedIndex = id
+                            parkingLotData[id].isFavorite.toggle()
                         } label: {
-                            if isPressedFavorite {
-                                Image("Heart")
+                            if parkingLotData[id].isFavorite {
+                                Image("Heart_filled")
                                     .resizable()
                                     .frame(width: 17, height: 15)
                             }
                             else {
-                                Image("Heart_filled")
+                                Image("Heart")
                                     .resizable()
                                     .frame(width: 17, height: 15)
                             }

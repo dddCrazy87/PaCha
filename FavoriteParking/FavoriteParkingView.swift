@@ -4,7 +4,8 @@ struct FavoriteParkingView: View {
     
     @Binding var parkingLotData: [ParkingLotDataForApp]
     @State private var sortByPrice = false
-    @State private var toRemoveFavoriteList:[Int] = []
+    @State private var lastedRemovedIndex:Int = 0
+    @State private var showUndoView = false
     @Environment(\.colorScheme) var colorScheme
     
     var favorieParkingData: [ParkingLotDataForApp] {
@@ -33,9 +34,23 @@ struct FavoriteParkingView: View {
                             Spacer().frame(height: 30)
                             ForEach(sortedParkingData.indices, id: \.self) { index in
                                 let parking = sortedParkingData[index]
-                                ParkingView(parkingData: parking.data, id: parking.originalIndex, toRemoveFavoriteList: $toRemoveFavoriteList)
+                                ParkingView(parkingData: parking.data, id: parking.originalIndex, lastedRemovedIndex: $lastedRemovedIndex, parkingLotData: $parkingLotData, showUndoView: $showUndoView)
                                 Spacer().frame(height: 20)
                             }
+                        }
+                    }
+                    Spacer().frame(height: 100)
+                }
+                
+                if showUndoView {
+                    VStack {
+                        Spacer()
+                        UndoFavoriteView(lastedRemovedIndex: $lastedRemovedIndex, parkingLotData: $parkingLotData, showUndoView: $showUndoView)
+                        Spacer().frame(height: 90)
+                    }
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+                            showUndoView = false
                         }
                     }
                 }
@@ -108,11 +123,6 @@ struct FavoriteParkingView: View {
                 .offset(x: 0, y:342)
             }
         }
-        .onDisappear {
-            for id in toRemoveFavoriteList {
-                parkingLotData[id].isFavorite = false
-            }
-        }
         .navigationTitle("常用停車場")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -138,7 +148,6 @@ struct FavoriteParkingView: View {
 }
 
 #Preview {
-    
     ContentView()
         .environmentObject(GlobalState.shared)
 }
