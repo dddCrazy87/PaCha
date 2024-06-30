@@ -45,6 +45,7 @@ struct MapView: View {
                 
                 ForEach(parkingLotData.indices, id: \.self) { index in
                     let parkingLot = parkingLotData[index]
+                    let payex = findPayex(from: parkingLot.payex)
                     if parkingLot.totalCar >= 100 {
                         Annotation("", coordinate: CLLocationCoordinate2D(latitude: parkingLot.latitude, longitude: parkingLot.longitude)) {
                             Button {
@@ -57,11 +58,20 @@ struct MapView: View {
                                         .scaledToFit()
                                         .frame(width: 50, height: 50)
                                     
-                                    Text("\(parkingLot.totalCar)")
-                                        .font(.system(size: 10))
-                                        .bold()
-                                        .offset(x:-0.5, y:-6)
-                                        .foregroundColor(.black)
+                                    if payex < 100 {
+                                        Text("\(payex)")
+                                            .font(.system(size: 10))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
+                                    else {
+                                        Text("100+")
+                                            .font(.system(size: 8))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
                                 }
                             }
                         }
@@ -79,11 +89,20 @@ struct MapView: View {
                                         .scaledToFit()
                                         .frame(width: 50, height: 50)
                                     
-                                    Text("\(parkingLot.totalCar)")
-                                        .font(.system(size: 10))
-                                        .bold()
-                                        .offset(x:-0.5, y:-6)
-                                        .foregroundColor(.black)
+                                    if payex < 100 {
+                                        Text("\(payex)")
+                                            .font(.system(size: 10))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
+                                    else {
+                                        Text("100+")
+                                            .font(.system(size: 8))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
                                 }
                             }
                         }
@@ -101,11 +120,20 @@ struct MapView: View {
                                         .scaledToFit()
                                         .frame(width: 50, height: 50)
                                     
-                                    Text("\(parkingLot.totalCar)")
-                                        .font(.system(size: 10))
-                                        .bold()
-                                        .offset(x:-0.5, y:-6)
-                                        .foregroundColor(.black)
+                                    if payex < 100 {
+                                        Text("\(payex)")
+                                            .font(.system(size: 10))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
+                                    else {
+                                        Text("100+")
+                                            .font(.system(size: 8))
+                                            .bold()
+                                            .offset(x:-0.5, y:-6)
+                                            .foregroundColor(.black)
+                                    }
                                 }
                             }
                         }
@@ -181,6 +209,34 @@ extension MapView {
             let results = try? await MKLocalSearch(request: request).start()
             searchResults = results?.mapItems ?? []
         }
+    }
+}
+
+extension MapView {
+    func findPayex(from text: String) -> Int {
+        
+        // X元/時
+        // 小型車計時X元
+        // 計時X元
+        
+        let patterns = [
+                #"(\d+)元/時"#,
+                #"小型車計時(\d+)元"#,
+                #"計時(\d+)元"#
+            ]
+            
+        for pattern in patterns {
+            guard let regex = try? NSRegularExpression(pattern: pattern) else {
+                continue
+            }
+            
+            if let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)),
+               let range = Range(match.range(at: 1), in: text),
+               let rate = Int(text[range]) {
+                return rate
+            }
+        }
+        return 100
     }
 }
 
