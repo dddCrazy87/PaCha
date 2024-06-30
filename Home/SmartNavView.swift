@@ -1,22 +1,29 @@
 import SwiftUI
 
 struct SmartNavView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         
         ZStack {
             RoundedRectangle(cornerRadius: 25)
                 .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                .frame(width: 350, height: 415)
-                .foregroundColor(Color("MapDetailBg"))
+                .frame(width: 350, height: 420)
+                .foregroundColor(Color("MainBg"))
             
             VStack {
                 Image("SmartSearch")
                     .resizable()
                     .frame(width: 80, height: 80)
                 
-                HStack {
+                HStack(alignment: .bottom){
                     Text("進場率")
                     Text("87")
+                        .foregroundColor(Color("AssistantDetail"))
+                        .bold()
+                        .font(.title)
+                        .offset(y:2)
                     Text("%")
                 }
                 .font(.title3)
@@ -29,24 +36,48 @@ struct SmartNavView: View {
                 
                 Text("WJ停車場")
                 
-                Text("剩餘車位50個")
-                    .font(.title2)
-                    .bold()
+                HStack(alignment: .bottom) {
+                    Text("剩餘車位")
+                        .font(.title3)
+                        .bold()
+                    Text("50")
+                        .font(.title)
+                        .bold()
+                        .foregroundColor(Color("AssistantDetail"))
+                        .offset(y:2)
+                    Text("個")
+                        .font(.title3)
+                        .bold()
+                }
                 
                 HStack {
                     
-                    Image("Price")
-                        .resizable()
-                        .frame(width: 17, height: 18)
+                    if colorScheme == .dark {
+                        Image("Price_dark")
+                            .resizable()
+                            .frame(width: 17, height: 18)
+                    }
+                    else {
+                        Image("Price")
+                            .resizable()
+                            .frame(width: 17, height: 18)
+                    }
                     
                     Text("40/H")
                     
                     Rectangle()
                         .frame(width: 1, height: 22)
                     
-                    Image("Distance")
-                        .resizable()
-                        .frame(width: 15, height: 15)
+                    if colorScheme == .dark {
+                        Image("Distance_dark")
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                    }
+                    else {
+                        Image("Distance")
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                    }
                     
                     Text("0.3公里")
                 }
@@ -57,7 +88,7 @@ struct SmartNavView: View {
                     ZStack {
                         RoundedRectangle(cornerRadius: 30)
                             .frame(width: 285, height: 40)
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color("SmartNavBtn"))
                         
                         Image("Navigation")
                             .resizable()
