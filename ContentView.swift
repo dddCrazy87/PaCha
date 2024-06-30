@@ -8,15 +8,20 @@ struct ContentView: View {
     @State private var parkingLotDataArray: [ParkingLotData] = []
     @State private var parkingLotDataArrayForApp: [ParkingLotDataForApp] = []
     
+    @State private var isLoading = true
+    
     @ObservedObject var locationManager = LocationManager.shared
     
     var body: some View {
         
-        Group {
+        ZStack {
+            Color("MainBg")
+                .ignoresSafeArea()
+            
             if locationManager.userLocation == nil {
                 LocationRequestView()
             }
-            else if parkingLotDataArray.isEmpty {
+            else if parkingLotDataArray.isEmpty || isLoading {
                 LoadingPageView()
             }
             else {
@@ -46,6 +51,10 @@ struct ContentView: View {
         .onAppear {
             LocationManager.shared.requstLocation()
             fetchParkingLotData()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                isLoading = false
+            }
         }
     }
 }
