@@ -3,6 +3,7 @@ import SwiftUI
 struct AssistantView: View {
     
     let historyParking:[HistoryParking]
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationStack {
@@ -148,9 +149,16 @@ struct AssistantView: View {
                     Button {
                         GlobalState.shared.viewController = "HomeView"
                     } label: {
-                        Image("Home")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Home_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Home")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
@@ -164,17 +172,31 @@ struct AssistantView: View {
                     Button {
                         GlobalState.shared.viewController = "FavoriteParkingView"
                     } label: {
-                        Image("Favorite")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Favorite_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Favorite")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
                         GlobalState.shared.viewController = "SettingView"
                     } label: {
-                        Image("Setting")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Setting_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Setting")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                 }
                 .padding(.horizontal, 60)

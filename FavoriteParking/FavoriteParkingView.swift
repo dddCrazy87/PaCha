@@ -5,6 +5,7 @@ struct FavoriteParkingView: View {
     @Binding var parkingLotData: [ParkingLotDataForApp]
     @State private var sortByPrice = false
     @State private var toRemoveFavoriteList:[Int] = []
+    @Environment(\.colorScheme) var colorScheme
     
     var favorieParkingData: [ParkingLotDataForApp] {
         parkingLotData.filter { $0.isFavorite || $0.isRecommend }
@@ -46,17 +47,31 @@ struct FavoriteParkingView: View {
                     Button {
                         GlobalState.shared.viewController = "HomeView"
                     } label: {
-                        Image("Home")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Home_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Home")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
                         GlobalState.shared.viewController = "AssistantView"
                     } label: {
-                        Image("Assistant")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Assistant_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Assistant")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
@@ -70,9 +85,16 @@ struct FavoriteParkingView: View {
                     Button {
                         GlobalState.shared.viewController = "SettingView"
                     } label: {
-                        Image("Setting")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Setting_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Setting")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                 }
                 .padding(.horizontal, 60)

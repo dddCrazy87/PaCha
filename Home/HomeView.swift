@@ -53,9 +53,16 @@ struct HomeView: View {
                     Button {
                         GlobalState.shared.viewController = "AssistantView"
                     } label: {
-                        Image("Assistant")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Assistant_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Assistant")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
@@ -70,17 +77,31 @@ struct HomeView: View {
                     Button {
                         GlobalState.shared.viewController = "FavoriteParkingView"
                     } label: {
-                        Image("Favorite")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Favorite_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Favorite")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
                         GlobalState.shared.viewController = "SettingView"
                     } label: {
-                        Image("Setting")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Setting_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Setting")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     .padding(.trailing, 20)
                 }

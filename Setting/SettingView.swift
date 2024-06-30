@@ -2,6 +2,8 @@ import SwiftUI
 
 struct SettingView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     // Preference
     @State private var isPreferenceSettingOn = false
     @State private var isNotificationOn = false
@@ -28,10 +30,18 @@ struct SettingView: View {
                     } label: {
                         HStack(alignment: .top) {
                             
-                            Image("Login")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .padding(.horizontal, 5)
+                            if colorScheme == .dark {
+                                Image("Login_dark")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
+                            else {
+                                Image("Login")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
                             
                             VStack(alignment: .leading) {
                                 Text("登入")
@@ -54,10 +64,18 @@ struct SettingView: View {
                         
                         HStack(alignment: .top) {
                             
-                            Image("DarkMode")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .padding(.horizontal, 5)
+                            if colorScheme == .dark {
+                                Image("DarkMode_dark")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
+                            else {
+                                Image("DarkMode")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
                             
                             HStack {
                                 Text("夜間模式")
@@ -78,10 +96,18 @@ struct SettingView: View {
                         
                         HStack(alignment: .top) {
                             
-                            Image("Preference")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .padding(.horizontal, 5)
+                            if colorScheme == .dark {
+                                Image("Preference_dark")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
+                            else {
+                                Image("Preference")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
                             
                             VStack(alignment: .leading) {
                                 Text("偏好設定")
@@ -105,10 +131,18 @@ struct SettingView: View {
                         
                         HStack(alignment: .top) {
                             
-                            Image("AboutUs")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .padding(.horizontal, 5)
+                            if colorScheme == .dark {
+                                Image("AboutUs_dark")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
+                            else {
+                                Image("AboutUs")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
                             
                             HStack {
                                 Text("關於我們")
@@ -130,10 +164,18 @@ struct SettingView: View {
                         
                         HStack(alignment: .top) {
                             
-                            Image("ContactUs")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .padding(.horizontal, 5)
+                            if colorScheme == .dark {
+                                Image("ContactUs_dark")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
+                            else {
+                                Image("ContactUs")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
                             
                             HStack {
                                 Text("聯絡我們")
@@ -154,10 +196,18 @@ struct SettingView: View {
                         
                         HStack(alignment: .top) {
                             
-                            Image("Share")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .padding(.horizontal, 5)
+                            if colorScheme == .dark {
+                                Image("Share_dark")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
+                            else {
+                                Image("Share")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .padding(.horizontal, 5)
+                            }
                             
                             HStack {
                                 Text("分享PaCha給好友")
@@ -174,10 +224,18 @@ struct SettingView: View {
                     
                     HStack(alignment: .top) {
                         
-                        Image("AutoUpdate")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .padding(.horizontal, 5)
+                        if colorScheme == .dark {
+                            Image("AutoUpdate_dark")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.horizontal, 5)
+                        }
+                        else {
+                            Image("AutoUpdate")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.horizontal, 5)
+                        }
                         
                         Toggle("自動更新", isOn: $isAutoUpdateOn)
                             .font(.title2)
@@ -196,25 +254,46 @@ struct SettingView: View {
                     Button {
                         GlobalState.shared.viewController = "HomeView"
                     } label: {
-                        Image("Home")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Home_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Home")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
                         GlobalState.shared.viewController = "AssistantView"
                     } label: {
-                        Image("Assistant")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Assistant_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Assistant")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
                         GlobalState.shared.viewController = "FavoriteParkingView"
                     } label: {
-                        Image("Favorite")
-                            .resizable()
-                            .frame(width: 25, height: 25)
+                        if colorScheme == .dark {
+                            Image("Favorite_dark")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
+                        else {
+                            Image("Favorite")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        }
                     }
                     Spacer()
                     Button {
