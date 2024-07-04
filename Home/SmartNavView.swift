@@ -19,7 +19,7 @@ struct SmartNavView: View {
                 
                 HStack(alignment: .bottom){
                     Text("進場率")
-                    Text("87")
+                    Text("85")
                         .foregroundColor(Color("AssistantDetail"))
                         .bold()
                         .font(.title)
@@ -29,18 +29,21 @@ struct SmartNavView: View {
                 .font(.title3)
                 .bold()
                 
-                Image("")
+                Image("SmartNavPhoto")
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 220, height: 157)
-                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    .shadow(radius: 10)
                 
-                Text("WJ停車場")
+                
+                Text("新南停車場-國立臺灣大學")
                 
                 HStack(alignment: .bottom) {
                     Text("剩餘車位")
                         .font(.title3)
                         .bold()
-                    Text("50")
+                    Text("41")
                         .font(.title)
                         .bold()
                         .foregroundColor(Color("AssistantDetail"))

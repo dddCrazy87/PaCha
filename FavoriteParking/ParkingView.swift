@@ -18,9 +18,13 @@ struct ParkingView: View {
             
             HStack(alignment:.top) {
                 
-                RoundedRectangle(cornerRadius: 15)
-                    .frame(width: 125, height: 90)
-                    .foregroundColor(.yellow)
+                
+                Image("ParkingLotPhoto")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 125, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    .shadow(radius: 10)
                     .padding(.leading, 70)
                 
                 Spacer()

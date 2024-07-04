@@ -16,6 +16,7 @@ struct ParkingNavView: View {
         if let parkingLotSelectedIndex {
             
             ZStack {
+                
                 RoundedRectangle(cornerRadius: 25)
                     .frame(width: 350, height: 315)
                     .foregroundColor(Color("MainBg"))
@@ -107,10 +108,12 @@ struct ParkingNavView: View {
                     
                     HStack {
                         
-                        Image("")
+                        Image("ParkingLotPhoto")
                             .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 125, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
-                            .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                            .shadow(radius: 10)
                         
                         VStack {
                             
