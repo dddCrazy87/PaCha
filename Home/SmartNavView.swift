@@ -19,7 +19,7 @@ struct SmartNavView: View {
                 
                 HStack(alignment: .bottom){
                     Text("進場率")
-                    Text("85")
+                    Text("82")
                         .foregroundColor(Color("AssistantDetail"))
                         .bold()
                         .font(.title)
@@ -33,7 +33,7 @@ struct SmartNavView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 220, height: 157)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
                     .shadow(radius: 10)
                 
                 

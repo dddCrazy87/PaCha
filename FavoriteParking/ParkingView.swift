@@ -22,8 +22,8 @@ struct ParkingView: View {
                 Image("ParkingLotPhoto")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 125, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    .frame(width: 125, height: 100)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
                     .shadow(radius: 10)
                     .padding(.leading, 70)
                 

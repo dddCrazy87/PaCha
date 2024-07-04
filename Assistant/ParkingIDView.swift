@@ -58,10 +58,13 @@ struct ParkingIDView: View {
                 
                 HStack {
                     Spacer()
-                    Image("")
+                    
+                    Image("ParkingLotPhoto")
                         .resizable()
+                        .aspectRatio(contentMode: .fill)
                         .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 70)
-                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .shadow(radius: 10)
                     
                     VStack(alignment: .leading) {
                         
