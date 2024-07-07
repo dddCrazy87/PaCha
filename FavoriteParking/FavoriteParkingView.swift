@@ -8,12 +8,8 @@ struct FavoriteParkingView: View {
     @State private var showUndoView = false
     @Environment(\.colorScheme) var colorScheme
     
-    var favorieParkingData: [ParkingLotDataForApp] {
-        parkingLotData.filter { $0.isFavorite || $0.isRecommend }
-    }
-    
     var sortedParkingData: [(data: ParkingLotDataForApp, originalIndex: Int)] {
-        let favoriteItems = parkingLotData.enumerated().filter { $0.element.isFavorite }
+        let favoriteItems = parkingLotData.enumerated().filter { $0.element.isFavorite || $0.element.isRecommend }
         if sortByPrice {
             let sortedItems = favoriteItems.sorted { $0.element.pricePerHour < $1.element.pricePerHour }
             return sortedItems.map { ($0.element, $0.offset) }

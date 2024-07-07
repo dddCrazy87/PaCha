@@ -44,8 +44,10 @@ struct ParkingView: View {
                         }
                         
                         Button {
-                            showUndoView = true
-                            lastedRemovedIndex = id
+                            if parkingLotData[id].isFavorite {
+                                showUndoView = true
+                                lastedRemovedIndex = id
+                            }
                             parkingLotData[id].isFavorite.toggle()
                         } label: {
                             if parkingLotData[id].isFavorite {

@@ -45,6 +45,17 @@ struct ContentView: View {
                         Text(GlobalState.shared.viewController)
                     }
                 }
+                .onAppear {
+                    parkingLotDataArrayForApp[5].isRecommend = true
+                    parkingLotDataArrayForApp[5].pricePerHour = 30
+                    parkingLotDataArrayForApp[5].distance = 13.9
+                    parkingLotDataArrayForApp[10].isRecommend = true
+                    parkingLotDataArrayForApp[10].pricePerHour = 30
+                    parkingLotDataArrayForApp[10].distance = 4.9
+                    parkingLotDataArrayForApp[15].isRecommend = true
+                    parkingLotDataArrayForApp[15].pricePerHour = 100
+                    parkingLotDataArrayForApp[15].distance = 1.4
+                }
             }
         }
         .foregroundColor(Color("MainFont"))
