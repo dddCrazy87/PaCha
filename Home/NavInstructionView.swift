@@ -90,6 +90,9 @@ struct NavInstructionView: View {
         VStack {
             Spacer().frame(height: 650)
             HStack {
+                
+                Spacer().frame(width: 65)
+                
                 VStack {
                     Text("\(String(format: "%.0f", expectedTravelTime/60))分鐘")
                         .font(.title)
@@ -99,7 +102,7 @@ struct NavInstructionView: View {
                     //Text("目的地：\(desinationName)")
                 }
                 
-                Spacer().frame(width: 50)
+                Spacer().frame(width: 35)
                 
                 Button {
                     isNavigating = false
