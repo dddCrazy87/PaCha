@@ -5,11 +5,18 @@ struct HistoryView: View {
     let historyParking:[HistoryParking]
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Spacer().frame(height: 20)
-                ForEach(historyParking) { parking in
-                    HistoryParkingView(historyParkingData: parking).padding(.vertical, 5)
+        Group {
+            if historyParking.isEmpty {
+                Text("還沒有停車紀錄！")
+            }
+            else{
+                ScrollView {
+                    VStack {
+                        Spacer().frame(height: 20)
+                        ForEach(historyParking) { parking in
+                            HistoryParkingView(historyParkingData: parking).padding(.vertical, 5)
+                        }
+                    }
                 }
             }
         }
