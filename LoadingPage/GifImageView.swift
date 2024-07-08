@@ -34,7 +34,7 @@ class GifImageLoader: UIView {
                 let frame = UIImage(cgImage: cgImage)
                 frames.append(frame)
                 
-                var delay = 0.1 // 默認延遲
+                var delay = 0.1
                 if let properties = CGImageSourceCopyPropertiesAtIndex(source, i, nil) as? [String: Any],
                    let gifProperties = properties[kCGImagePropertyGIFDictionary as String] as? [String: Any] {
                     delay = gifProperties[kCGImagePropertyGIFDelayTime as String] as? Double ?? 0.1
@@ -58,7 +58,7 @@ class GifImageLoader: UIView {
     }
     
     @objc private func updateFrame() {
-        currentTime += 1 / 60.0 // 假設螢幕刷新率為 60Hz
+        currentTime += 1 / 60.0
         if currentTime >= totalDuration {
             currentTime = 0
         }

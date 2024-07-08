@@ -1,8 +1,13 @@
 import SwiftUI
+import MapKit
 
 struct SmartNavView: View {
     
     @Environment(\.colorScheme) var colorScheme
+    @Binding var selectedItem: MKMapItem?
+    @Binding var showSmartNav: Bool
+    @Binding var isNavigating: Bool
+    
     
     var body: some View {
         
@@ -38,6 +43,8 @@ struct SmartNavView: View {
                 
                 
                 Text("新南停車場-國立臺灣大學")
+                
+                // 25.0191998119859, 121.53391474859414
                 
                 HStack(alignment: .bottom) {
                     Text("剩餘車位")
@@ -86,7 +93,9 @@ struct SmartNavView: View {
                 }
                 
                 Button {
-                    
+                    selectedItem = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 25.0191998119859, longitude: 121.53391474859414)))
+                    showSmartNav = false
+                    isNavigating = true
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 30)
@@ -107,5 +116,6 @@ struct SmartNavView: View {
 }
 
 #Preview {
-    SmartNavView()
+    ContentView()
+        .environmentObject(GlobalState.shared)
 }

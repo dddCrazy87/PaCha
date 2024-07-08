@@ -36,7 +36,7 @@ struct HomeView: View {
             }
             
             if showSmartNav {
-                SmartNavView()
+                SmartNavView(selectedItem: $selectedItem, showSmartNav: $showSmartNav, isNavigating: $isNavigating)
             }
             
             if !isNavigating {
