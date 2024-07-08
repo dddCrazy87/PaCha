@@ -8,13 +8,13 @@ struct UndoFavoriteView: View {
     
     var body: some View {
         HStack {
-            Text("已從常用停車場移除")
+            Text("已移除了一個停車場")
             Spacer().frame(width: 75)
             Button {
                 parkingLotData[lastedRemovedIndex].isFavorite = true
                 showUndoView = false
             } label: {
-                Text("重新加入")
+                Text("復原")
                     .foregroundStyle(Color.blue)
             }
         }

@@ -121,6 +121,9 @@ struct FavoriteParkingView: View {
         }
         .navigationTitle("常用停車場")
         .navigationBarTitleDisplayMode(.inline)
+        .onTapGesture {
+            showUndoView = false
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing, content: {
                 
