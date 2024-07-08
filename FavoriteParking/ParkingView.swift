@@ -69,7 +69,9 @@ struct ParkingView: View {
                         Text("$\(parkingData.pricePerHour)/hr")
                             .font(.caption2)
                         
-                        Divider().frame(height: 12)
+                        Rectangle()
+                            .frame(width:0.8, height: 12)
+                            .foregroundColor(Color("MainOrange"))
                         
                         Text("\(String(format: "%.1f", parkingData.distance))公里")
                             .font(.caption2)

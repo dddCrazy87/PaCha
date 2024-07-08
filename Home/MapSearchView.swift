@@ -41,6 +41,7 @@ struct MapSearchView: View {
                         Text("搜尋")
                             .foregroundStyle(Color("SearchText"))
                     )
+                        .foregroundStyle(Color("SearchText"))
                         .focused($isTextFieldFocused)
                         .font(.system(size: 20))
                         .padding(.leading, 5)
