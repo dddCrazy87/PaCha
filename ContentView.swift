@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var parkingLotDataArrayForApp: [ParkingLotDataForApp] = []
     
     @State private var isLoading = true
+    @State private var isManualDarkModeOn = false
     
     @ObservedObject var locationManager = LocationManager.shared
     
@@ -39,7 +40,7 @@ struct ContentView: View {
                         FavoriteParkingView(parkingLotData: $parkingLotDataArrayForApp)
                             .background(Color("MainBg"))
                     case "SettingView":
-                        SettingView()
+                        SettingView(isManualDarkModeOn: $isManualDarkModeOn)
                             .background(Color("MainBg"))
                     default:
                         Text(GlobalState.shared.viewController)
@@ -67,6 +68,7 @@ struct ContentView: View {
                 isLoading = false
             }
         }
+        .preferredColorScheme(isManualDarkModeOn ? .dark : .light)
     }
 }
 

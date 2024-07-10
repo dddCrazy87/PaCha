@@ -12,7 +12,7 @@ struct SettingView: View {
     // DarkModeSetting
     @State private var isDarkModeSettingOn = false
     @State private var isAutoDarkModeOn = false
-    @State private var isManualDarkModeOn = false
+    @Binding var isManualDarkModeOn:Bool
     @State private var isTimerDarkModeOn = false
     
     @State private var isAutoUpdateOn = false
@@ -346,8 +346,6 @@ struct SettingView: View {
 }
 
 #Preview {
-    NavigationStack {
-        SettingView()
-            .environmentObject(GlobalState.shared)
-    }
+    ContentView()
+        .environmentObject(GlobalState.shared)
 }

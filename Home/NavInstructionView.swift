@@ -42,7 +42,11 @@ struct NavInstructionView: View {
                         .font(.callout)
                         .bold()
                     
-                    Text(instruction[2...instruction.count-1])
+                    if instruction.count-1 > 2 {
+                        Text(instruction[2...instruction.count-1])
+                            .font(.title2)
+                    }
+                    Text("進入道路")
                         .font(.title2)
                 }
                 .padding(.leading, 20)
